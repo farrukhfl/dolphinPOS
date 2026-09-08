@@ -10,8 +10,8 @@ import FAQAccordion from '../components/FAQAccordion'
 import FinalCTA from '../components/FinalCTA'
 import AnimatedNumber from '../components/AnimatedNumber'
 import HeroShowcase from '../components/HeroShowcase'
+import IndustrySpotlight from '../components/IndustrySpotlight'
 import { useBookDemo } from '../lib/BookDemoContext'
-import { industries } from '../data/industries'
 import {
   allInOneCards, comparisonRows, faqs, featuresGrid, howItWorks, paymentMethods, switchPoints, testimonials,
 } from '../data/homeContent'
@@ -75,16 +75,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="overflow-hidden border-y border-slate-200 bg-white py-6">
-        <p className="mb-4 text-center text-xs font-bold tracking-[0.25em] text-slate-400">TRUSTED ACROSS EVERY KIND OF RETAIL</p>
-        <div className="flex w-max animate-marquee gap-12">
-          {[...industries, ...industries].map(({ name, icon: Icon }, i) => (
-            <div key={i} className="flex shrink-0 items-center gap-2 text-sm font-bold text-slate-400">
-              <Icon size={16} className="text-dolphin-500" /> {name}
-            </div>
-          ))}
-        </div>
-      </div>
+      <IndustrySpotlight />
 
       <section className="px-5 py-24 lg:px-8">
         <Reveal className="mx-auto max-w-5xl">
