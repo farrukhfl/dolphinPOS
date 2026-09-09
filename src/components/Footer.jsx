@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Mail, Phone, Waves } from 'lucide-react'
+import { ArrowRight, Mail, Phone } from 'lucide-react'
 import { LinkedinIcon, InstagramIcon, FacebookIcon } from './SocialIcons'
 import { EMAIL_SUPPORT, FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, PHONE, PHONE_TEL, footerColumns } from '../lib/nav'
 
@@ -27,11 +27,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2">
-            <Link to="/" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-dolphin-600">
-                <Waves size={20} strokeWidth={2.5} />
-              </span>
-              <span className="font-display text-xl font-bold text-white">Dolphin POS</span>
+            <Link to="/" className="inline-flex items-center rounded-xl bg-white px-3 py-2 shadow-md" aria-label="Dolphin POS home">
+              <img src="/dolphinposlogo.png" alt="Dolphin POS" className="h-8 w-auto" />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-dolphin-100">
               On a mission to help merchants keep more of every sale with built-in dual pricing and an all-in-one point of sale.

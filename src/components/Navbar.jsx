@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown, LayoutGrid, Menu, Phone, Waves, X } from 'lucide-react'
+import { ChevronDown, LayoutGrid, Menu, Phone, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Button from './ui/Button'
@@ -63,11 +63,8 @@ export default function Navbar() {
 
       <div className="border-b border-slate-200/80 bg-white/95 backdrop-blur">
         <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main navigation">
-          <Link to="/" className="group flex items-center gap-2.5" aria-label="Dolphin POS home">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-dolphin-400 to-dolphin-600 text-white transition duration-300 group-hover:scale-105">
-              <Waves size={22} strokeWidth={2.5} />
-            </span>
-            <span className="font-display text-xl font-extrabold text-ink">Dolphin POS</span>
+          <Link to="/" className="group flex items-center" aria-label="Dolphin POS home">
+            <img src="/dolphinposlogo.png" alt="Dolphin POS" className="h-9 w-auto transition duration-300 group-hover:scale-105 sm:h-10" />
           </Link>
 
           <div className="hidden items-center gap-7 lg:flex">
