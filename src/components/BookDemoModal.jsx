@@ -2,28 +2,53 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarDays, Check, X } from 'lucide-react'
 import { useBookDemo } from '../lib/BookDemoContext'
+import { ApiError, submitContact } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
 
 const PRODUCTS = ['Dolphin POS', 'Dolphin Software', 'Dolphin Hardware']
 
-const initialForm = { name: '', email: '', phone: '', date: '', product: PRODUCTS[0], consent: false }
+const initialForm = { name: '', email: '', phone: '', businessName: '', businessWebsite: '', date: '', product: PRODUCTS[0], consent: false }
 
 export default function BookDemoModal() {
   const { isOpen, closeModal } = useBookDemo()
+  const { honeypotProps, isBot } = useBotGuard(isOpen)
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   const handleClose = () => {
     closeModal()
-    setTimeout(() => { setSubmitted(false); setForm(initialForm); setError('') }, 300)
+    setTimeout(() => { setSubmitted(false); setForm(initialForm); setError(''); setSubmitting(false) }, 300)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!form.name || !form.email || !form.date) { setError('Please fill in your name, email, and a preferred date.'); return }
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    if (!form.name || !form.email || !form.phone || !form.businessName || !form.businessWebsite || !form.date) {
+      setError('Please fill in all required fields.')
+      return
+    }
     if (!form.consent) { setError('Please confirm you agree to be contacted about your appointment.'); return }
     setError('')
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      await submitContact({
+        fullName: form.name,
+        phoneNo: form.phone,
+        email: form.email,
+        businessName: form.businessName,
+        businessWebsite: form.businessWebsite,
+        yourRequire: 'Demo',
+        message: `Requested a demo of ${form.product} for ${form.date}.`,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const update = (field) => (event) => {
@@ -72,6 +97,7 @@ export default function BookDemoModal() {
                 <p className="mt-2 text-sm leading-6 text-slate-500">See dual pricing and Dolphin POS in action — pick a date and we'll confirm a time that works for you.</p>
 
                 <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
+                  <input type="text" {...honeypotProps} />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label htmlFor="demo-name" className="mb-1.5 block text-xs font-semibold text-slate-600">Full Name</label>
@@ -85,12 +111,23 @@ export default function BookDemoModal() {
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="demo-phone" className="mb-1.5 block text-xs font-semibold text-slate-600">Phone (optional)</label>
+                      <label htmlFor="demo-phone" className="mb-1.5 block text-xs font-semibold text-slate-600">Phone</label>
                       <input id="demo-phone" type="tel" value={form.phone} onChange={update('phone')} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-400" placeholder="(555) 123-4567" />
                     </div>
                     <div>
                       <label htmlFor="demo-date" className="mb-1.5 block text-xs font-semibold text-slate-600">Preferred Date</label>
                       <input id="demo-date" type="date" value={form.date} onChange={update('date')} min={new Date().toISOString().split('T')[0]} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink" />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="demo-business" className="mb-1.5 block text-xs font-semibold text-slate-600">Business Name</label>
+                      <input id="demo-business" type="text" value={form.businessName} onChange={update('businessName')} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-400" placeholder="Business name" />
+                    </div>
+                    <div>
+                      <label htmlFor="demo-website" className="mb-1.5 block text-xs font-semibold text-slate-600">Business Website</label>
+                      <input id="demo-website" type="text" value={form.businessWebsite} onChange={update('businessWebsite')} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-400" placeholder="yourbusiness.com" />
                     </div>
                   </div>
 
@@ -108,8 +145,8 @@ export default function BookDemoModal() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" className="mt-2 w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Schedule Appointment
+                  <button type="submit" disabled={submitting} className="mt-2 w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Scheduling…' : 'Schedule Appointment'}
                   </button>
                 </form>
               </>

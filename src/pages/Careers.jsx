@@ -1,21 +1,41 @@
 import { useState } from 'react'
-import { Check, Search, Upload } from 'lucide-react'
+import { Check, Search } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import SectionHeading from '../components/ui/SectionHeading'
 import Field, { inputClass } from '../components/ui/Field'
 import { benefits, hiringProcess, whyItMatters } from '../data/careersContent'
+import { ApiError, submitCareers } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
 
 export default function Careers() {
-  const [form, setForm] = useState({ name: '', email: '', message: '', fileName: '' })
+  const { honeypotProps, isBot } = useBotGuard()
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const update = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }))
-  const updateFile = (event) => setForm((prev) => ({ ...prev, fileName: event.target.files?.[0]?.name || '' }))
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    setError('')
+    setSubmitting(true)
+    try {
+      await submitCareers({
+        fullName: form.name,
+        phoneNo: form.phone,
+        email: form.email,
+        coverLetter: form.message,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -111,6 +131,7 @@ export default function Careers() {
                 <h3 className="mt-2 text-2xl font-extrabold text-ink">Join our Talent Network</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">Upload your resume. We'll reach out when something fits.</p>
                 <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
+                  <input type="text" {...honeypotProps} />
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Full Name" htmlFor="careers-name">
                       <input id="careers-name" type="text" required value={form.name} onChange={update('name')} className={inputClass} placeholder="Jane Smith" />
@@ -119,18 +140,17 @@ export default function Careers() {
                       <input id="careers-email" type="email" required value={form.email} onChange={update('email')} className={inputClass} placeholder="jane@email.com" />
                     </Field>
                   </div>
+                  <Field label="Phone (optional)" htmlFor="careers-phone">
+                    <input id="careers-phone" type="tel" value={form.phone} onChange={update('phone')} className={inputClass} placeholder="(555) 123-4567" />
+                  </Field>
                   <Field label="Message (optional)" htmlFor="careers-message">
                     <textarea id="careers-message" rows={3} value={form.message} onChange={update('message')} className={inputClass} placeholder="Tell us what you're looking for..." />
                   </Field>
-                  <Field label="Resume" htmlFor="careers-resume">
-                    <label htmlFor="careers-resume" className="flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-slate-300 px-3.5 py-4 text-sm text-slate-500 hover:border-dolphin-400">
-                      <Upload size={17} className="text-dolphin-600" />
-                      {form.fileName || 'Click to upload your resume (PDF, DOC)'}
-                    </label>
-                    <input id="careers-resume" type="file" accept=".pdf,.doc,.docx" onChange={updateFile} className="hidden" />
-                  </Field>
-                  <button type="submit" className="w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Submit Application
+
+                  {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
+
+                  <button type="submit" disabled={submitting} className="w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Submitting…' : 'Submit Application'}
                   </button>
                 </form>
               </>

@@ -22,9 +22,9 @@ export const paymentMethods = [
 ]
 
 export const howItWorks = [
-  { step: '01', title: 'Customer Chooses', body: 'At checkout, your customer picks how they want to pay — cash or card.' },
-  { step: '02', title: 'Dolphin Calculates', body: 'Dolphin POS automatically applies the correct cash or card price in real time, no manual math.' },
-  { step: '03', title: 'You Save on Fees', body: 'Card processing costs are covered by the small price difference, not out of your margin.' },
+  { step: '01', title: 'Customer Chooses', body: 'At checkout, your customer picks how they want to pay — cash or card.', image: '/homepage/how-it-works/customer-chooses.webp' },
+  { step: '02', title: 'Dolphin Calculates', body: 'Dolphin POS automatically applies the correct cash or card price in real time, no manual math.', image: '/homepage/how-it-works/dolphin-calculates.webp' },
+  { step: '03', title: 'You Save on Fees', body: 'Card processing costs are covered by the small price difference, not out of your margin.', image: '/homepage/how-it-works/you-save-on-fees.webp' },
 ]
 
 export const allInOneCards = [
@@ -72,4 +72,54 @@ export const faqs = [
   { question: 'How does Dolphin POS adapt to different store types?', answer: 'Every account is configured for your industry — from age verification and weighted produce to appointment booking — so you only see the tools you actually use.' },
   { question: 'What payment methods can I accept?', answer: 'Cash, all major credit and debit cards, tap to pay, Apple Pay, Google Pay, gift cards, EBT/SNAP, QR payments, store credit, buy now pay later, wearables, digital wallets, and ACH transfers.' },
   { question: 'Can Dolphin POS handle both food and retail in one location?', answer: 'Yes. Dolphin POS supports hybrid businesses that sell both food and retail items from a single register and inventory system.' },
+]
+
+// --- Landing page v2 -------------------------------------------------------
+
+export const heroTrustPoints = [
+  'No long-term contract',
+  'Free card reader',
+  'Live in 1-3 days',
+]
+
+export const heroStats = [
+  { value: 1000, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: '+', label: 'Businesses powered' },
+  { value: 50, format: (n) => Math.round(n).toLocaleString(), prefix: '$', suffix: 'M+', label: 'Processed annually' },
+  { value: 4.9, format: (n) => n.toFixed(1), prefix: '', suffix: '/5', label: 'Merchant rating' },
+]
+
+export const bigStats = [
+  { value: 100, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: '%', label: 'Of the card processing fee covered at checkout, not by your margin' },
+  { value: 50, format: (n) => Math.round(n).toLocaleString(), prefix: '$', suffix: 'M+', label: 'In annual payment volume running through Dolphin POS' },
+  { value: 3, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: ' days', label: 'From signed paperwork to ringing up your first sale' },
+]
+
+// Segments Dolphin POS ships a preconfigured register for. Rendered as the
+// scrolling trust rail under the hero.
+export const businessTypes = [
+  'Grocery', 'Convenience', 'Restaurants', 'Liquor Stores', 'Smoke & Vape',
+  'Pharmacy', 'Delis', 'Bakeries', 'Butcher Shops', 'Coffee Shops',
+  'Food Trucks', 'Quick Service', 'Salons', 'Barbershops', 'Auto Service',
+  'Pet Supply', 'Hardware', 'Gift Shops', 'Farm Stands', 'Professional Services',
+]
+
+// Hero / CTA overview video. Single source of truth so the button label and the
+// modal can never disagree about the running time.
+export const overviewVideo = {
+  title: 'Dolphin POS in 30 seconds',
+  description: 'A quick look at the point-of-sale system built to simplify how your business takes payments.',
+  duration: '0:31',
+  src: '/Dolphin-POS-Introductory-Video.mp4',
+  poster: '/homepage/overview-poster.jpg',
+  available: true,
+}
+
+export const overviewVideoLabel = 'Watch a 30-sec Overview'
+
+// Segments without a counter photo of their own. These fill the pill rail
+// beneath the photo marquee, so the two rails never repeat a category.
+export const extraBusinessTypes = [
+  'Delis', 'Bakeries', 'Butcher Shops', 'Coffee Shops', 'Food Trucks',
+  'Quick Service', 'Salons', 'Barbershops', 'Auto Service', 'Pet Supply',
+  'Hardware', 'Gift Shops', 'Farm Stands', 'Juice Bars', 'Garden Centers',
 ]

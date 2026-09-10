@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Check, Receipt } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import Card from '../components/ui/Card'
 import SectionHeading from '../components/ui/SectionHeading'
 import FAQAccordion from '../components/FAQAccordion'
 import FinalCTA from '../components/FinalCTA'
 import {
-  commandCenterPoints, faqs, featuresGrid, hardwareFitPoints, retailIndustries, timeline,
+  commandCenterPoints, faqs, featuresGrid, hardwareFitPoints, pricingSteps, retailIndustries, timeline,
 } from '../data/posRetailContent'
 
 export default function PosRetail() {
@@ -14,13 +14,23 @@ export default function PosRetail() {
 
   return (
     <>
-      <section className="dot-grid px-5 pb-16 pt-20 text-center lg:px-8 lg:pt-28">
-        <Reveal className="mx-auto max-w-4xl">
-          <p className="mb-5 text-xs font-bold tracking-[0.2em] text-dolphin-700">POS RETAIL</p>
-          <h1 className="text-balance text-4xl font-extrabold leading-tight text-ink sm:text-5xl lg:text-6xl">
-            Built for Retail. Designed for However You Sell.
-          </h1>
-        </Reveal>
+      <section className="dot-grid px-5 pb-16 pt-20 lg:px-8 lg:pt-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 text-center lg:grid-cols-[1.05fr_.95fr] lg:gap-10 lg:text-left">
+          <Reveal>
+            <p className="mb-5 text-xs font-bold tracking-[0.2em] text-dolphin-700">POS RETAIL</p>
+            <h1 className="text-balance text-4xl font-extrabold leading-tight text-ink sm:text-5xl lg:text-6xl">
+              Built for Retail. Designed for However You Sell.
+            </h1>
+          </Reveal>
+          <Reveal direction="left" delay={0.15} className="overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-dolphin-900/10">
+            <img
+              src="/homepage/industries/grocery.webp"
+              alt="A Dolphin POS retail checkout counter"
+              className="aspect-[3/2] w-full object-cover"
+              loading="lazy"
+            />
+          </Reveal>
+        </div>
       </section>
 
       <section className="px-5 pb-24 lg:px-8">
@@ -48,25 +58,37 @@ export default function PosRetail() {
 
       <section className="bg-dolphin-50 px-5 py-24 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-6xl">
-          <Reveal><SectionHeading eyebrow="LIVE AT CHECKOUT" title="See dual pricing in action" align="center" className="mx-auto" /></Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-14 grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
-                <p className="text-xs font-bold tracking-[0.2em] text-slate-400">CASH PRICE</p>
-                <p className="mt-3 text-5xl font-extrabold text-ink">$10.00</p>
-                <p className="mt-2 text-sm text-slate-500">No fees applied</p>
-              </div>
-              <div className="rounded-2xl border-2 border-dolphin-500 bg-dolphin-50 p-8 text-center">
-                <p className="text-xs font-bold tracking-[0.2em] text-dolphin-700">CARD PRICE</p>
-                <p className="mt-3 text-5xl font-extrabold text-dolphin-800">$10.35</p>
-                <p className="mt-2 text-sm text-dolphin-700">Fee covered by the customer, not your margin</p>
-              </div>
-            </div>
-            <div className="mx-auto mt-6 flex max-w-sm items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dolphin-50 text-dolphin-700"><Receipt size={18} /></span>
-              <p className="text-sm text-slate-600">Every receipt and end-of-day report shows the dual pricing breakdown automatically.</p>
-            </div>
+          <Reveal>
+            <SectionHeading
+              eyebrow="LIVE AT CHECKOUT"
+              title="Retail's smartest pricing strategy"
+              body="Built directly into Dolphin POS, dual pricing automatically applies cash and card pricing at checkout — helping recover credit card processing costs without changing how you do business."
+              align="center"
+              className="mx-auto"
+            />
           </Reveal>
+          <div className="mt-20 grid gap-10 md:grid-cols-3 md:gap-8">
+            {pricingSteps.map(({ title, image }, i) => (
+              <Reveal key={title} delay={i * 0.1} className="flex flex-col items-center text-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-dolphin-600 text-sm font-extrabold text-white shadow-lg shadow-dolphin-900/20">
+                  {i + 1}
+                </span>
+                <h3 className="mt-4 text-base font-bold text-ink">{title}</h3>
+                <div className="relative mt-4 w-full">
+                  <div className="interactive-card overflow-hidden rounded-2xl border border-slate-200 bg-white p-5">
+                    <img src={image} alt={title} className="w-full" loading="lazy" />
+                  </div>
+                  {i < pricingSteps.length - 1 && (
+                    <ArrowRight
+                      className="absolute -right-7 top-1/2 hidden -translate-y-1/2 text-dolphin-300 md:block"
+                      size={24}
+                      aria-hidden="true"
+                    />
+                  )}
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

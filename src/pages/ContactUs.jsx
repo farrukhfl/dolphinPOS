@@ -6,18 +6,42 @@ import SectionHeading from '../components/ui/SectionHeading'
 import Field, { inputClass } from '../components/ui/Field'
 import { EMAIL_SUPPORT, PHONE, PHONE_TEL } from '../lib/nav'
 import { requireOptions, supportCards, topicCards } from '../data/contactContent'
+import { ApiError, submitContact } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
 
 const initialForm = { name: '', phone: '', email: '', businessName: '', website: '', require: requireOptions[0], message: '' }
 
 export default function ContactUs() {
+  const { honeypotProps, isBot } = useBotGuard()
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const update = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }))
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    setError('')
+    setSubmitting(true)
+    try {
+      await submitContact({
+        fullName: form.name,
+        phoneNo: form.phone,
+        email: form.email,
+        businessName: form.businessName,
+        businessWebsite: form.website,
+        yourRequire: form.require,
+        message: form.message,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -48,6 +72,7 @@ export default function ContactUs() {
               <>
                 <h2 className="text-2xl font-extrabold text-ink">Get started here</h2>
                 <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
+                  <input type="text" {...honeypotProps} />
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Full Name" htmlFor="contact-name">
                       <input id="contact-name" type="text" required value={form.name} onChange={update('name')} className={inputClass} placeholder="Jane Smith" />
@@ -61,10 +86,10 @@ export default function ContactUs() {
                   </Field>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Business Name" htmlFor="contact-business">
-                      <input id="contact-business" type="text" value={form.businessName} onChange={update('businessName')} className={inputClass} placeholder="Business name" />
+                      <input id="contact-business" type="text" required value={form.businessName} onChange={update('businessName')} className={inputClass} placeholder="Business name" />
                     </Field>
                     <Field label="Business Website" htmlFor="contact-website">
-                      <input id="contact-website" type="text" value={form.website} onChange={update('website')} className={inputClass} placeholder="yourbusiness.com" />
+                      <input id="contact-website" type="text" required value={form.website} onChange={update('website')} className={inputClass} placeholder="yourbusiness.com" />
                     </Field>
                   </div>
                   <Field label="Your Require" htmlFor="contact-require">
@@ -73,10 +98,12 @@ export default function ContactUs() {
                     </select>
                   </Field>
                   <Field label="Your Message" htmlFor="contact-message">
-                    <textarea id="contact-message" rows={4} value={form.message} onChange={update('message')} className={inputClass} placeholder="Tell us a bit about your business..." />
+                    <textarea id="contact-message" rows={4} required value={form.message} onChange={update('message')} className={inputClass} placeholder="Tell us a bit about your business..." />
                   </Field>
-                  <button type="submit" className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Start the Conversation <Send size={15} />
+                  {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
+
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Sending…' : <>Start the Conversation <Send size={15} /></>}
                   </button>
                 </form>
               </>

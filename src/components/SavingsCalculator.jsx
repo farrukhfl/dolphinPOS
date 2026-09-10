@@ -44,7 +44,7 @@ function Field({ label, prefix, suffix, value, onChange, min, max, step }) {
   )
 }
 
-export default function SavingsCalculator() {
+export default function SavingsCalculator({ showHeading = true }) {
   const [monthlySales, setMonthlySales] = useState(50000)
   const [avgTicket, setAvgTicket] = useState(25)
   const [rate, setRate] = useState(2.9)
@@ -66,14 +66,22 @@ export default function SavingsCalculator() {
 
   return (
     <Card className="grid overflow-hidden lg:grid-cols-2">
-      <div className="p-8 sm:p-10">
-        <p className="mb-1 text-xs font-bold tracking-[0.2em] text-dolphin-700">SAVINGS CALCULATOR</p>
-        <h3 className="text-2xl font-extrabold text-ink">See what dual pricing saves you</h3>
-        <div className="mt-8 space-y-7">
+      <div className="flex flex-col p-8 sm:p-10">
+        {showHeading && (
+          <>
+            <p className="mb-1 text-xs font-bold tracking-[0.2em] text-dolphin-700">SAVINGS CALCULATOR</p>
+            <h3 className="text-2xl font-extrabold text-ink">See what dual pricing saves you</h3>
+          </>
+        )}
+        <div className={`space-y-7 ${showHeading ? 'mt-8' : ''}`}>
           <Field label="Monthly Credit Card Sales" prefix="$" value={monthlySales} onChange={setMonthlySales} min={1000} max={500000} step={1000} />
           <Field label="Average Ticket Size" prefix="$" value={avgTicket} onChange={setAvgTicket} min={5} max={200} step={1} />
           <Field label="Current Processing Rate" suffix="%" value={rate} onChange={setRate} min={1} max={5} step={0.1} />
         </div>
+        <p className="mt-auto pt-8 text-xs leading-5 text-slate-400">
+          Estimate based on your current effective rate versus a flat $0.47 per transaction on
+          Dolphin POS. Your quote is confirmed against a real statement during the demo.
+        </p>
       </div>
 
       <div className="flex flex-col justify-center bg-gradient-to-br from-dolphin-500 to-dolphin-700 p-8 text-white sm:p-10">

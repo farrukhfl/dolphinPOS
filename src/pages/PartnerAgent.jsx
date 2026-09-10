@@ -8,6 +8,8 @@ import Field, { inputClass } from '../components/ui/Field'
 import FAQAccordion from '../components/FAQAccordion'
 import { PHONE, PHONE_TEL } from '../lib/nav'
 import { experienceOptions, faqs, incomeSteps, trustBadges, valueProps } from '../data/partnerAgentContent'
+import { ApiError, submitPartnerAgent } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
 
 const initialForm = { name: '', email: '', phone: '', company: '', experience: experienceOptions[0], consent: false }
 const scrollToForm = () => document.getElementById('partner-form')?.scrollIntoView({ behavior: 'smooth' })
@@ -19,8 +21,10 @@ const dashboardStats = [
 ]
 
 export default function PartnerAgent() {
+  const { honeypotProps, isBot } = useBotGuard()
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   const update = (field) => (event) => {
@@ -28,12 +32,27 @@ export default function PartnerAgent() {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!form.name || !form.email) { setError('Please fill in your name and email.'); return }
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    if (!form.name || !form.email || !form.phone) { setError('Please fill in your name, email, and phone.'); return }
     if (!form.consent) { setError('Please agree to be contacted to submit your application.'); return }
     setError('')
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      await submitPartnerAgent({
+        fullName: form.name,
+        phoneNo: form.phone,
+        email: form.email,
+        consentGiven: form.consent,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -145,6 +164,7 @@ export default function PartnerAgent() {
               <>
                 <h2 className="text-2xl font-extrabold text-ink">Become a Dolphin POS Partner</h2>
                 <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
+                  <input type="text" {...honeypotProps} />
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Name" htmlFor="partner-name">
                       <input id="partner-name" type="text" value={form.name} onChange={update('name')} className={inputClass} placeholder="Jane Smith" />
@@ -174,8 +194,8 @@ export default function PartnerAgent() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Submit <Send size={15} />
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Submitting…' : <>Submit <Send size={15} /></>}
                   </button>
                 </form>
               </>

@@ -9,15 +9,44 @@ import Field, { inputClass } from '../components/ui/Field'
 import FinalCTA from '../components/FinalCTA'
 import { useBookDemo } from '../lib/BookDemoContext'
 import { businessTypeOptions, industries, solutionBlocks, values } from '../data/aboutContent'
+import { ApiError, submitAboutUs } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
+
+const initialForm = { fullName: '', businessName: '', email: '', phone: '', businessType: businessTypeOptions[0], numberOfLocations: '', message: '' }
 
 export default function AboutUs() {
   const { openModal } = useBookDemo()
-  const [businessType, setBusinessType] = useState(businessTypeOptions[0])
+  const { honeypotProps, isBot } = useBotGuard()
+  const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (event) => {
+  const update = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }))
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    if (!form.fullName || !form.email || !form.phone || !form.businessName) { setError('Please fill in your name, email, phone, and business name.'); return }
+    setError('')
+    setSubmitting(true)
+    try {
+      await submitAboutUs({
+        fullName: form.fullName,
+        businessName: form.businessName,
+        email: form.email,
+        phoneNo: form.phone,
+        businessType: form.businessType,
+        numberOfLocations: form.numberOfLocations ? Number(form.numberOfLocations) : undefined,
+        message: form.message,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -116,19 +145,47 @@ export default function AboutUs() {
               <div className="py-6 text-center">
                 <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-dolphin-50 text-dolphin-700"><Check size={28} /></div>
                 <h3 className="text-2xl font-extrabold text-ink">Thanks for reaching out!</h3>
-                <p className="mt-3 text-slate-600">Our team will be in touch about your {businessType.toLowerCase()} business shortly.</p>
+                <p className="mt-3 text-slate-600">Our team will be in touch about your {form.businessType.toLowerCase()} business shortly.</p>
               </div>
             ) : (
               <>
                 <h3 className="text-2xl font-extrabold text-ink">Tell us about your business</h3>
                 <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
-                  <Field label="Business Type" htmlFor="business-type">
-                    <select id="business-type" value={businessType} onChange={(e) => setBusinessType(e.target.value)} className={inputClass}>
-                      {businessTypeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                    </select>
+                  <input type="text" {...honeypotProps} />
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field label="Full Name" htmlFor="about-name">
+                      <input id="about-name" type="text" required value={form.fullName} onChange={update('fullName')} className={inputClass} placeholder="Jane Smith" />
+                    </Field>
+                    <Field label="Email Address" htmlFor="about-email">
+                      <input id="about-email" type="email" required value={form.email} onChange={update('email')} className={inputClass} placeholder="jane@business.com" />
+                    </Field>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field label="Phone Number" htmlFor="about-phone">
+                      <input id="about-phone" type="tel" required value={form.phone} onChange={update('phone')} className={inputClass} placeholder="(555) 123-4567" />
+                    </Field>
+                    <Field label="Business Name" htmlFor="about-business-name">
+                      <input id="about-business-name" type="text" required value={form.businessName} onChange={update('businessName')} className={inputClass} placeholder="Business name" />
+                    </Field>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field label="Business Type" htmlFor="business-type">
+                      <select id="business-type" value={form.businessType} onChange={update('businessType')} className={inputClass}>
+                        {businessTypeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                      </select>
+                    </Field>
+                    <Field label="Number of Locations" htmlFor="about-locations">
+                      <input id="about-locations" type="number" min="1" value={form.numberOfLocations} onChange={update('numberOfLocations')} className={inputClass} placeholder="1" />
+                    </Field>
+                  </div>
+                  <Field label="Message (optional)" htmlFor="about-message">
+                    <textarea id="about-message" rows={3} value={form.message} onChange={update('message')} className={inputClass} placeholder="Tell us more about your business..." />
                   </Field>
-                  <button type="submit" className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Start the Conversation <Send size={15} />
+
+                  {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
+
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Sending…' : <>Start the Conversation <Send size={15} /></>}
                   </button>
                 </form>
               </>

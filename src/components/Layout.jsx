@@ -5,6 +5,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollProgress from './ScrollProgress'
 import BookDemoModal from './BookDemoModal'
+import StickyCTA from './StickyCTA'
 import { BookDemoProvider } from '../lib/BookDemoContext'
 
 export default function Layout() {
@@ -20,6 +21,7 @@ export default function Layout() {
       </motion.main>
       <Footer />
       <BookDemoModal />
+      <StickyCTA />
     </BookDemoProvider>
   )
 }

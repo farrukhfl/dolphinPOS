@@ -84,3 +84,101 @@ input[type='range']::-moz-range-thumb {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+/* ---------------------------------------------------------------
+   Landing page v2 — rhythm-breaking bands, motion, and hover states
+   --------------------------------------------------------------- */
+@layer utilities {
+  /* Full-bleed dark band used to break up the white card rhythm */
+  .deep-sea {
+    background:
+      radial-gradient(900px 480px at 12% -10%, rgba(12, 121, 247, 0.30), transparent 60%),
+      radial-gradient(760px 420px at 92% 110%, rgba(45, 212, 191, 0.16), transparent 62%),
+      linear-gradient(160deg, #0a1828 0%, #06111d 55%, #040b13 100%);
+  }
+
+  /* Animated aurora mesh behind the hero */
+  .aurora { position: relative; z-index: 0; }
+  .aurora::before,
+  .aurora::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .aurora::before {
+    top: -18%; left: -12%;
+    width: 44rem; height: 44rem;
+    background: radial-gradient(circle, rgba(12, 121, 247, 0.32), transparent 68%);
+    animation: float-slow 15s ease-in-out infinite;
+  }
+  .aurora::after {
+    bottom: -26%; right: -10%;
+    width: 38rem; height: 38rem;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.22), transparent 68%);
+    animation: float-slower 19s ease-in-out infinite;
+  }
+
+  /* Cursor-tracking spotlight on hoverable cards */
+  .spotlight { position: relative; isolation: isolate; }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(12, 121, 247, 0.13), transparent 62%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .spotlight:hover::before { opacity: 1; }
+  .spotlight > * { position: relative; z-index: 1; }
+  .spotlight-dark::before {
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(90, 171, 255, 0.20), transparent 62%);
+  }
+
+  /* Edge fade + track for marquee rails */
+  .fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  }
+  .marquee-track { display: flex; width: max-content; }
+  .marquee-pause:hover .marquee-track { animation-play-state: paused; }
+
+  .text-gradient-light {
+    background: linear-gradient(90deg, #92c8ff 0%, #5aabff 45%, #2dd4bf 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .grid-lines-dark {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Sweep of light across primary buttons */
+  .shine { position: relative; overflow: hidden; }
+  .shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    pointer-events: none;
+  }
+  .shine:hover::after { animation: shimmer 0.9s ease; }
+
+  .tabular { font-variant-numeric: tabular-nums; }
+}

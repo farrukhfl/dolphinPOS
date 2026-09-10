@@ -53,6 +53,12 @@ export const featuresGrid = [
   { title: 'Real-Time Reporting', icon: BarChart3 },
 ]
 
+export const pricingSteps = [
+  { title: 'Customer Chooses', image: '/retail/cash-card-price.png' },
+  { title: 'Receipt Prints Automatically', image: '/retail/receipt.png' },
+  { title: 'Reporting Updates', image: '/retail/sales-overview.png' },
+]
+
 export const commandCenterPoints = [
   'Manage pricing and promotions across every register',
   'Track margin and shrinkage down to the SKU',

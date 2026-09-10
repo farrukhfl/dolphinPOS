@@ -3,4 +3,6 @@ dist
 .env
 .env.local
 *.log
-dolphin-pos-build-prompt-batch*.md
+*.md
+!README.md
+Dolphin-POS-Landing-Forms.postman_collection.json

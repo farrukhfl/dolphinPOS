@@ -5,18 +5,23 @@ import Card from '../components/ui/Card'
 import SectionHeading from '../components/ui/SectionHeading'
 import Field, { inputClass } from '../components/ui/Field'
 import { referredBenefits, steps, trustStats } from '../data/partnerProgramContent'
+import { ApiError, submitPartnerProgram } from '../lib/api'
+import { useBotGuard } from '../lib/useBotGuard'
 
 const initialForm = {
   fullName: '', email: '', phone: '',
-  businessName: '', businessContact: '', businessPhone: '', businessType: '',
+  businessName: '', businessWebsite: '', businessNumber: '', streetAddress: '', ownerName: '', ownerNumber: '',
+  relationshipNote: '',
   consent: false,
 }
 
 const scrollToForm = () => document.getElementById('referral-form')?.scrollIntoView({ behavior: 'smooth' })
 
 export default function PartnerProgram() {
+  const { honeypotProps, isBot } = useBotGuard()
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   const update = (field) => (event) => {
@@ -24,12 +29,34 @@ export default function PartnerProgram() {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!form.fullName || !form.email || !form.businessName) { setError('Please fill in your info and the referred business name.'); return }
+    if (submitting) return
+    if (isBot()) { setSubmitted(true); return }
+    if (!form.fullName || !form.email || !form.phone || !form.businessName || !form.ownerName) { setError('Please fill in your info, the referred business name, and the owner name.'); return }
     if (!form.consent) { setError('Please agree to the Privacy Policy to submit your referral.'); return }
     setError('')
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      await submitPartnerProgram({
+        fullName: form.fullName,
+        email: form.email,
+        phoneNo: form.phone,
+        businessNumber: form.businessNumber,
+        businessName: form.businessName,
+        businessWebsite: form.businessWebsite,
+        streetAddress: form.streetAddress,
+        ownerName: form.ownerName,
+        ownerNumber: form.ownerNumber,
+        relationshipNote: form.relationshipNote,
+        consentGiven: form.consent,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -90,8 +117,8 @@ export default function PartnerProgram() {
             ) : (
               <>
                 <h2 className="text-2xl font-extrabold text-ink">Start referring today</h2>
-                {/* TODO: confirm referral form fields with backend before launch — live site had this form unbuilt (placeholder text) */}
                 <form className="mt-6 space-y-8" onSubmit={handleSubmit}>
+                  <input type="text" {...honeypotProps} />
                   <div>
                     <p className="mb-4 text-xs font-bold tracking-[0.15em] text-dolphin-700">YOUR INFORMATION</p>
                     <div className="space-y-5">
@@ -116,18 +143,29 @@ export default function PartnerProgram() {
                         <Field label="Business Name" htmlFor="ref-biz-name">
                           <input id="ref-biz-name" type="text" value={form.businessName} onChange={update('businessName')} className={inputClass} placeholder="Business name" />
                         </Field>
-                        <Field label="Business Contact Name" htmlFor="ref-biz-contact">
-                          <input id="ref-biz-contact" type="text" value={form.businessContact} onChange={update('businessContact')} className={inputClass} placeholder="Contact name" />
+                        <Field label="Business Website" htmlFor="ref-biz-website">
+                          <input id="ref-biz-website" type="text" value={form.businessWebsite} onChange={update('businessWebsite')} className={inputClass} placeholder="business.com" />
                         </Field>
                       </div>
                       <div className="grid gap-5 sm:grid-cols-2">
-                        <Field label="Business Phone" htmlFor="ref-biz-phone">
-                          <input id="ref-biz-phone" type="tel" value={form.businessPhone} onChange={update('businessPhone')} className={inputClass} placeholder="(555) 123-4567" />
+                        <Field label="Business Phone" htmlFor="ref-biz-number">
+                          <input id="ref-biz-number" type="tel" value={form.businessNumber} onChange={update('businessNumber')} className={inputClass} placeholder="(555) 123-4567" />
                         </Field>
-                        <Field label="Business Type/Industry" htmlFor="ref-biz-type">
-                          <input id="ref-biz-type" type="text" value={form.businessType} onChange={update('businessType')} className={inputClass} placeholder="e.g. Retail, Restaurant" />
+                        <Field label="Street Address" htmlFor="ref-biz-address">
+                          <input id="ref-biz-address" type="text" value={form.streetAddress} onChange={update('streetAddress')} className={inputClass} placeholder="123 Main St, City" />
                         </Field>
                       </div>
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        <Field label="Owner Name" htmlFor="ref-owner-name">
+                          <input id="ref-owner-name" type="text" value={form.ownerName} onChange={update('ownerName')} className={inputClass} placeholder="Owner's name" />
+                        </Field>
+                        <Field label="Owner Phone" htmlFor="ref-owner-number">
+                          <input id="ref-owner-number" type="tel" value={form.ownerNumber} onChange={update('ownerNumber')} className={inputClass} placeholder="(555) 123-4567" />
+                        </Field>
+                      </div>
+                      <Field label="How do you know them? (optional)" htmlFor="ref-note">
+                        <textarea id="ref-note" rows={3} value={form.relationshipNote} onChange={update('relationshipNote')} className={inputClass} placeholder="Tell us about your relationship with this business..." />
+                      </Field>
                     </div>
                   </div>
 
@@ -138,8 +176,8 @@ export default function PartnerProgram() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700">
-                    Submit Referral <Send size={15} />
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                    {submitting ? 'Submitting…' : <>Submit Referral <Send size={15} /></>}
                   </button>
                 </form>
               </>
