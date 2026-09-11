@@ -1,10 +1,29 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import Reveal from '../Reveal'
 import RevealImage from '../ui/RevealImage'
 import { howItWorks } from '../../data/homeContent'
 
-function Step({ item, index, isActive, onEnter }) {
+const DESKTOP = '(min-width: 1024px)'
+
+/** Tracks the breakpoint, because the dimming below cannot be a CSS class. */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(DESKTOP).matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP)
+    const onChange = (e) => setIsDesktop(e.matches)
+    mq.addEventListener('change', onChange)
+    setIsDesktop(mq.matches)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  return isDesktop
+}
+
+function Step({ item, index, isActive, onEnter, dimInactive }) {
   const ref = useRef(null)
 
   return (
@@ -30,8 +49,11 @@ function Step({ item, index, isActive, onEnter }) {
           </motion.span>
         </div>
 
+        {/* Dimming only makes sense next to the pinned pane. On phones each
+            step carries its own image, so fading two of the three would just
+            read as disabled content. */}
         <motion.div
-          animate={{ opacity: isActive ? 1 : 0.45 }}
+          animate={{ opacity: !dimInactive || isActive ? 1 : 0.45 }}
           transition={{ duration: 0.4 }}
           className="pt-1"
         >
@@ -58,6 +80,7 @@ function Step({ item, index, isActive, onEnter }) {
 export default function StickySteps() {
   const [active, setActive] = useState(0)
   const reduceMotion = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const current = howItWorks[active] ?? howItWorks[0]
 
   return (
@@ -138,7 +161,14 @@ export default function StickySteps() {
           {/* Steps */}
           <div className="divide-y divide-slate-100 lg:divide-y-0">
             {howItWorks.map((item, i) => (
-              <Step key={item.step} item={item} index={i} isActive={active === i} onEnter={setActive} />
+              <Step
+                key={item.step}
+                item={item}
+                index={i}
+                isActive={active === i}
+                onEnter={setActive}
+                dimInactive={isDesktop}
+              />
             ))}
           </div>
         </div>

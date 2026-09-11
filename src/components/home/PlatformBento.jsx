@@ -1,12 +1,12 @@
-import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
-import {
-  ArrowUpRight, CloudOff, Layers, LineChart, Lock, Plug, RefreshCw, Store,
-} from 'lucide-react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { ArrowUpRight, CloudOff, Layers, LineChart, Lock, Plug, Store } from 'lucide-react'
 import Reveal from '../Reveal'
 import SpotlightCard from '../ui/SpotlightCard'
 
-/** Animated proof for the hero bento tile: fees on a traditional POS vs. Dolphin. */
+const CARD = 'rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur transition duration-500 hover:border-dolphin-400/40'
+
+/** Monthly cost of card volume, drawn as two bars. */
 function FeeBars() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
@@ -18,7 +18,7 @@ function FeeBars() {
   ]
 
   return (
-    <div ref={ref} className="mt-auto space-y-5 pt-10">
+    <div ref={ref} className="mt-auto space-y-5 pt-8">
       {bars.map((bar, i) => (
         <div key={bar.label}>
           <div className="mb-2 flex items-center justify-between text-xs font-bold">
@@ -36,39 +36,93 @@ function FeeBars() {
         </div>
       ))}
       <p className="pt-1 text-xs leading-5 text-slate-500">
-        Monthly cost on $50,000 in card volume. The difference lands in your account, not the processor&apos;s.
+        On $50,000 of monthly card volume. The difference lands in your account.
       </p>
     </div>
   )
 }
 
-/** Small looping uptime strip for the offline tile. */
+/**
+ * Sales-per-minute strip with the outage flagged amber. The legend beneath it
+ * both explains the amber bars and fills the card, which otherwise stretched
+ * to the photo tile beside it and left a gap through its middle.
+ */
 function OfflineStrip() {
   const reduceMotion = useReducedMotion()
   return (
-    <div className="mt-6 flex items-end gap-1.5" aria-hidden="true">
-      {Array.from({ length: 22 }).map((_, i) => {
-        const dropped = i === 9 || i === 10
-        return (
-          <motion.span
-            key={i}
-            className={`w-full rounded-sm ${dropped ? 'bg-amber-400/70' : 'bg-dolphin-400/60'}`}
-            style={{ height: `${dropped ? 14 : 10 + ((i * 37) % 24)}px` }}
-            initial={reduceMotion ? false : { scaleY: 0.2, opacity: 0.3 }}
-            whileInView={{ scaleY: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.03 }}
-          />
-        )
-      })}
+    <div className="mt-auto pt-8">
+      <div className="flex items-end gap-1.5" aria-hidden="true">
+        {Array.from({ length: 26 }).map((_, i) => {
+          const dropped = i === 11 || i === 12
+          return (
+            <motion.span
+              key={i}
+              className={`w-full rounded-sm ${dropped ? 'bg-amber-400/80' : 'bg-dolphin-400/60'}`}
+              style={{ height: `${dropped ? 16 : 14 + ((i * 37) % 30)}px` }}
+              initial={reduceMotion ? false : { scaleY: 0.2, opacity: 0.3 }}
+              whileInView={{ scaleY: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.03 }}
+            />
+          )
+        })}
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-4 text-xs font-semibold">
+        <span className="flex items-center gap-2 text-slate-400">
+          <span className="h-2.5 w-2.5 rounded-sm bg-dolphin-400/60" aria-hidden="true" />
+          Connected
+        </span>
+        <span className="flex items-center gap-2 text-amber-300">
+          <span className="h-2.5 w-2.5 rounded-sm bg-amber-400/80" aria-hidden="true" />
+          Offline, still ringing sales
+        </span>
+      </div>
     </div>
   )
 }
 
+/**
+ * Full-bleed photo tile. The section is dark, so a counter shot under a
+ * gradient reads as part of the card rather than a pasted-in picture.
+ */
+function PhotoTile({ image, alt, icon: Icon, title, body, className = '', delay = 0 }) {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <Reveal delay={delay} className={className}>
+      <article className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-abyss-900 transition duration-500 hover:border-dolphin-400/40">
+        <motion.img
+          src={image}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition duration-[900ms] ease-out group-hover:scale-[1.07]"
+          initial={reduceMotion ? false : { opacity: 0, scale: 1.1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        />
+        {/* Heavy enough at the foot that the copy never fights the signage
+            and product detail these counter shots are full of */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-abyss-950 via-abyss-950/88 to-abyss-950/25" />
+
+        <div className="relative flex min-h-[19rem] flex-col justify-end p-8 sm:min-h-[22rem] sm:p-10">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-dolphin-600 text-white shadow-lg transition duration-500 group-hover:scale-110">
+            <Icon size={22} />
+          </span>
+          <h3 className="mt-5 text-2xl font-bold text-white sm:text-[1.6rem]">{title}</h3>
+          <p className="mt-2.5 max-w-md leading-7 text-slate-300">{body}</p>
+        </div>
+      </article>
+    </Reveal>
+  )
+}
+
 const SMALL_TILES = [
-  { title: 'Inventory that counts itself', body: 'Live stock levels, low-stock alerts, and vendor tracking across every register.', icon: Layers },
-  { title: 'One dashboard, every location', body: 'Pricing, staff permissions, and reporting for all your stores in one place.', icon: LineChart },
-  { title: 'Connects to what you use', body: 'Accounting, eCommerce, and loyalty tools plug straight in — no middleware.', icon: Plug },
+  { title: 'Inventory that counts itself', body: 'Live counts, low-stock alerts, vendor tracking.', icon: Layers },
+  { title: 'One dashboard, every location', body: 'Pricing, permissions and reporting in one place.', icon: LineChart },
+  { title: 'Connects to what you use', body: 'Accounting, eCommerce and loyalty. No middleware.', icon: Plug },
 ]
 
 export default function PlatformBento() {
@@ -85,61 +139,62 @@ export default function PlatformBento() {
               <span className="text-gradient-light">protects the margin.</span>
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-400">
-              Not a payments add-on bolted onto a POS. Dual pricing is wired into the checkout
-              itself, so it works on every sale without anyone thinking about it.
+              Dual pricing is wired into the checkout itself, not bolted on beside it. It works
+              on every sale without anyone thinking about it.
             </p>
           </div>
         </Reveal>
 
         <div className="mt-14 grid gap-4 lg:grid-cols-12">
-          {/* Hero tile */}
-          <Reveal className="lg:col-span-7">
-            <SpotlightCard dark className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur transition duration-500 hover:border-dolphin-400/40 sm:p-10">
+          {/* Anchor: the register doing the thing the section describes */}
+          <PhotoTile
+            className="lg:col-span-7"
+            image="/retail/industries/restaurant.webp"
+            alt="A Dolphin POS screen at a counter showing the card price beside the cash price"
+            icon={Store}
+            title="Dual pricing that runs itself"
+            body="Both prices are calculated at the moment of sale and printed on the receipt. No manual math, no second terminal."
+          />
+
+          <Reveal delay={0.08} className="lg:col-span-5">
+            <SpotlightCard dark className={`flex h-full flex-col p-8 sm:p-10 ${CARD}`}>
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-dolphin-500/15 text-dolphin-300 ring-1 ring-inset ring-dolphin-400/25">
-                <RefreshCw size={22} />
+                <LineChart size={22} />
               </span>
-              <h3 className="mt-6 text-2xl font-bold text-white sm:text-[1.7rem]">Dual pricing that runs itself</h3>
-              <p className="mt-3 max-w-lg leading-7 text-slate-400">
-                Cash and card prices are calculated at the moment of sale and printed on the
-                receipt. No manual math, no separate terminal, no awkward conversation.
+              <h3 className="mt-6 text-xl font-bold text-white">What accepting cards costs you</h3>
+              <p className="mt-2.5 text-sm leading-6 text-slate-400">
+                Every card sale carries a fee. Dual pricing moves it off your margin.
               </p>
               <FeeBars />
             </SpotlightCard>
           </Reveal>
 
-          {/* Right column */}
-          <div className="grid gap-4 lg:col-span-5">
-            <Reveal delay={0.08}>
-              <SpotlightCard dark className="h-full rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur transition duration-500 hover:border-dolphin-400/40">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-400/10 text-amber-300 ring-1 ring-inset ring-amber-400/25">
-                  <CloudOff size={22} />
-                </span>
-                <h3 className="mt-6 text-xl font-bold text-white">The internet drops. You keep selling.</h3>
-                <p className="mt-2.5 text-sm leading-6 text-slate-400">
-                  Offline mode holds every transaction locally and syncs the second you reconnect.
-                </p>
-                <OfflineStrip />
-              </SpotlightCard>
-            </Reveal>
+          <Reveal delay={0.12} className="lg:col-span-7">
+            <SpotlightCard dark className={`flex h-full flex-col p-8 sm:p-10 ${CARD}`}>
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-400/10 text-amber-300 ring-1 ring-inset ring-amber-400/25">
+                <CloudOff size={22} />
+              </span>
+              <h3 className="mt-6 text-xl font-bold text-white">The internet drops. You keep selling.</h3>
+              <p className="mt-2.5 text-sm leading-6 text-slate-400">
+                Offline mode holds every transaction locally and syncs the second you reconnect.
+              </p>
+              <OfflineStrip />
+            </SpotlightCard>
+          </Reveal>
 
-            <Reveal delay={0.16}>
-              <SpotlightCard dark className="h-full rounded-3xl border border-white/10 bg-gradient-to-br from-dolphin-600/25 to-transparent p-8 backdrop-blur transition duration-500 hover:border-dolphin-400/40">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-inset ring-white/20">
-                  <Store size={22} />
-                </span>
-                <h3 className="mt-6 text-xl font-bold text-white">Configured for your counter</h3>
-                <p className="mt-2.5 text-sm leading-6 text-slate-400">
-                  Age verification, weighted produce, EBT, appointments — you get the tools your
-                  category needs and none of the ones it does not.
-                </p>
-              </SpotlightCard>
-            </Reveal>
-          </div>
+          <PhotoTile
+            className="lg:col-span-5"
+            image="/retail/industries/services.webp"
+            alt="A Dolphin POS terminal configured for a salon counter, listing services rather than products"
+            icon={Layers}
+            title="Configured for your counter"
+            body="Age verification, weighted produce, EBT, appointments. You get your category's tools and none of the rest."
+            delay={0.08}
+          />
 
-          {/* Bottom row */}
           {SMALL_TILES.map(({ title, body, icon: Icon }, i) => (
             <Reveal key={title} delay={0.08 * i} className="lg:col-span-4">
-              <SpotlightCard dark className="group h-full rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur transition duration-500 hover:border-dolphin-400/40">
+              <SpotlightCard dark className={`group h-full p-8 ${CARD}`}>
                 <div className="flex items-start justify-between">
                   <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.07] text-dolphin-300 ring-1 ring-inset ring-white/10">
                     <Icon size={20} />
@@ -152,7 +207,6 @@ export default function PlatformBento() {
             </Reveal>
           ))}
 
-          {/* Security strip */}
           <Reveal delay={0.1} className="lg:col-span-12">
             <div className="flex flex-col items-start justify-between gap-4 rounded-3xl border border-white/10 bg-white/[0.03] px-8 py-6 backdrop-blur sm:flex-row sm:items-center">
               <div className="flex items-center gap-4">

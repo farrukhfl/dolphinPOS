@@ -12,10 +12,10 @@ export const valueChain = [
 ]
 
 export const keepMorePoints = [
-  { title: 'No processing fees out of your margin', body: 'Dual pricing automatically covers the cost of accepting cards.' },
-  { title: 'Transparent pricing for every job', body: 'Customers see the exact cash and card price before they pay.' },
-  { title: 'Get paid the same day', body: 'Take payment on-site or send a digital invoice from the field.' },
-  { title: 'Built for service businesses', body: 'Appointments, invoicing, and payments all live in one place.' },
+  { title: 'No processing fees out of your margin', body: 'Dual pricing automatically covers the cost of accepting cards.', image: '/services/benefits/no-processing-fees.webp' },
+  { title: 'Transparent pricing for every job', body: 'Customers see the exact cash and card price before they pay.', image: '/services/benefits/transparent-pricing.webp' },
+  { title: 'Get paid the same day', body: 'Take payment on-site or send a digital invoice from the field.', image: '/services/benefits/same-day-payout.webp' },
+  { title: 'Built for service businesses', body: 'Appointments, invoicing, and payments all live in one place.', image: '/services/benefits/built-for-service.webp' },
 ]
 
 export const featuresGrid = [
@@ -40,3 +40,8 @@ export const faqs = [
   { question: 'Can Dolphin POS support multiple locations or a franchise?', answer: 'Yes. Multi-location and franchise businesses can manage every site from one centralized dashboard.' },
   { question: 'Is dual pricing actually transparent to my customers?', answer: 'Yes. The cash and card price are both displayed clearly at checkout before the customer pays.' },
 ]
+
+export const servicesHero = {
+  image: '/services/hero.webp',
+  alt: 'Dolphin POS running at a burger counter, grocery checkout, pharmacy, liquor store, vape shop, salon and convenience store',
+}

@@ -1,21 +1,23 @@
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import PosSystems from './pages/PosSystems'
-import Services from './pages/Services'
-import DualPricing from './pages/DualPricing'
-import PosRetail from './pages/PosRetail'
-import Pricing from './pages/Pricing'
-import AboutUs from './pages/AboutUs'
-import ContactUs from './pages/ContactUs'
-import Careers from './pages/Careers'
-import PartnerProgram from './pages/PartnerProgram'
-import PartnerAgent from './pages/PartnerAgent'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import TermsConditions from './pages/TermsConditions'
-import HowToSetup from './pages/HowToSetup'
 import ComingSoon from './pages/ComingSoon'
-import NotFound from './pages/NotFound'
+
+const PosSystems = lazy(() => import('./pages/PosSystems'))
+const Services = lazy(() => import('./pages/Services'))
+const DualPricing = lazy(() => import('./pages/DualPricing'))
+const PosRetail = lazy(() => import('./pages/PosRetail'))
+const Pricing = lazy(() => import('./pages/Pricing'))
+const AboutUs = lazy(() => import('./pages/AboutUs'))
+const ContactUs = lazy(() => import('./pages/ContactUs'))
+const Careers = lazy(() => import('./pages/Careers'))
+const PartnerProgram = lazy(() => import('./pages/PartnerProgram'))
+const PartnerAgent = lazy(() => import('./pages/PartnerAgent'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const TermsConditions = lazy(() => import('./pages/TermsConditions'))
+const HowToSetup = lazy(() => import('./pages/HowToSetup'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 export default function App() {
   return (
