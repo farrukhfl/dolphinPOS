@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Mail, Phone } from 'lucide-react'
-import { LinkedinIcon, InstagramIcon, FacebookIcon } from './SocialIcons'
-import { EMAIL_SUPPORT, FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, PHONE, PHONE_TEL, footerColumns } from '../lib/nav'
+import { LinkedinIcon, InstagramIcon, FacebookIcon, WhatsappIcon } from './SocialIcons'
+import { EMAIL_SUPPORT, FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, PHONE, PHONE_TEL, WHATSAPP_URL, footerColumns } from '../lib/nav'
 
 const quickLinks = [
   { label: 'Book a Demo', to: '/contact-us' },
@@ -42,6 +42,9 @@ export default function Footer() {
               </a>
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:-translate-y-1 hover:border-white hover:bg-white hover:text-dolphin-600">
                 <FacebookIcon size={16} />
+              </a>
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white transition hover:-translate-y-1 hover:border-white hover:bg-white hover:text-dolphin-600">
+                <WhatsappIcon size={16} />
               </a>
             </div>
           </div>

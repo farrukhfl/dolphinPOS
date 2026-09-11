@@ -3,9 +3,10 @@ export const PHONE_TEL = 'tel:8886961049'
 export const EMAIL_SUPPORT = 'support@dolphinpos.com'
 export const LEGACY_LOGIN_URL = 'https://dolphinposportal.com/'
 export const DOLPHIN_LOGIN_URL = 'https://www.uat-retail.gotmsolutions.com/'
-export const LINKEDIN_URL = '#'
-export const INSTAGRAM_URL = '#'
-export const FACEBOOK_URL = '#'
+export const LINKEDIN_URL = 'https://www.linkedin.com/company/dolphin-advanced-technology-services'
+export const INSTAGRAM_URL = 'https://www.instagram.com/dolphinmerchantservices/'
+export const FACEBOOK_URL = 'https://www.facebook.com/godms2015?mibextid=LQQJ4d'
+export const WHATSAPP_URL = 'https://wa.me/8886960939'
 
 export const primaryLinks = [
   { label: 'Retail', to: '/pos-retail' },
