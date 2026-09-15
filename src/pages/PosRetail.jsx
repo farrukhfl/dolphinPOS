@@ -5,10 +5,10 @@ import FAQAccordion from '../components/FAQAccordion'
 import FinalCTA from '../components/FinalCTA'
 import RetailHero from '../components/retail/RetailHero'
 import RetailIndustries from '../components/retail/RetailIndustries'
-import PricingFlow from '../components/retail/PricingFlow'
+import StepFlow from '../components/StepFlow'
 import FeatureIconGrid from '../components/retail/FeatureIconGrid'
 import ImageSplit from '../components/retail/ImageSplit'
-import { commandCenter, faqs, hardwareFit, timeline } from '../data/posRetailContent'
+import { commandCenter, faqs, hardwareFit, pricingSteps, timeline } from '../data/posRetailContent'
 
 function DayTimeline() {
   const [active, setActive] = useState(2)
@@ -86,7 +86,12 @@ export default function PosRetail() {
 
       <RetailIndustries />
 
-      <PricingFlow />
+      <StepFlow
+        eyebrow="Live at checkout"
+        title="Retail's smartest pricing strategy"
+        body="Dual pricing applies the cash and card price at checkout, recovering processing costs without changing how you do business."
+        steps={pricingSteps}
+      />
 
       <ImageSplit
         eyebrow="One dashboard"

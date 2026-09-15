@@ -7,10 +7,33 @@ export const trustBadges = [
   { label: 'Powerful Tools to Grow', icon: Sparkles },
 ]
 
+export const dualPricingHero = {
+  image: '/dual-pricing/hero.webp',
+  alt: 'A Dolphin POS terminal showing the cash and card price side by side, beside a crossed-out credit card fee receipt',
+}
+
 export const howItWorks = [
-  { step: '01', title: 'Customer chooses', body: 'At checkout, the customer picks how they want to pay — cash or card.' },
-  { step: '02', title: 'Dolphin applies pricing', body: 'The correct cash or card price is calculated and displayed automatically.' },
-  { step: '03', title: 'You keep more revenue', body: 'The processing fee is covered by the price difference, not your margin.' },
+  {
+    step: '01',
+    title: 'Customer chooses',
+    body: 'At checkout, the customer picks how they want to pay — cash or card.',
+    image: '/dual-pricing/steps/customer-chooses.webp',
+    alt: 'A shopper at a grocery counter choosing between cash and card on a Dolphin POS screen',
+  },
+  {
+    step: '02',
+    title: 'Dolphin applies pricing',
+    body: 'The correct cash or card price is calculated and displayed automatically.',
+    image: '/dual-pricing/steps/pricing-applies.webp',
+    alt: 'A Dolphin POS terminal calculating the cash and card price for the same basket',
+  },
+  {
+    step: '03',
+    title: 'You keep more revenue',
+    body: 'The processing fee is covered by the price difference, not your margin.',
+    image: '/dual-pricing/steps/keep-more-revenue.webp',
+    alt: 'A Dolphin POS counter showing the processing fee covered and the full sale amount kept',
+  },
 ]
 
 export const benefitCards = [
