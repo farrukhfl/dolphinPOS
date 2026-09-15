@@ -65,12 +65,12 @@ export default function SwitchSection() {
         {/* Payments rail */}
         <div className="mt-24 lg:mt-32">
           <Reveal>
-            <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+            <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
               Accept every way your customers pay
             </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <Marquee className="mt-8" speed="slow">
+            <Marquee className="mt-8" speed="slow" ariaLabel="Accepted payment methods">
               {paymentMethods.map(({ name, icon: Icon }) => (
                 <span
                   key={name}

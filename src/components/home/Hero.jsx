@@ -31,7 +31,7 @@ const CHIPS = [
     title: 'Offline Ready',
     note: 'Keeps ringing sales',
     tone: 'bg-amber-50 text-amber-600',
-    noteTone: 'text-slate-400',
+    noteTone: 'text-slate-500',
     pos: '-left-3 top-14 lg:-left-7',
     delay: 0.9,
     drift: '0.7s',
@@ -41,7 +41,7 @@ const CHIPS = [
     title: 'PCI Compliant',
     note: 'Bank-level security',
     tone: 'bg-dolphin-50 text-dolphin-700',
-    noteTone: 'text-slate-400',
+    noteTone: 'text-slate-500',
     pos: '-right-2 bottom-12 lg:-right-5',
     delay: 1.05,
     drift: '1.4s',
@@ -90,7 +90,7 @@ export default function Hero({ onWatchVideo }) {
                 className="mr-[0.22em] inline-block"
                 initial={reduceMotion ? false : { opacity: 0, y: 26, filter: 'blur(8px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.6, delay: 0.08 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, delay: i * 0.03, ease: [0.22, 1, 0.36, 1] }}
               >
                 {word}
               </motion.span>
@@ -99,16 +99,23 @@ export default function Hero({ onWatchVideo }) {
               className="text-gradient inline-block"
               initial={reduceMotion ? false : { opacity: 0, y: 26, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.7, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
               Keep every dollar you earn.
             </motion.span>
           </h1>
 
+          {/*
+            This paragraph is the tallest above-the-fold text block, which
+            makes it the LCP element under Core Web Vitals on most viewports —
+            it used to sit behind a 550ms staggered-reveal delay stacked on
+            top of however long the JS bundle takes to become interactive.
+            Same fade, far less of it gating the metric that actually matters.
+          */}
           <motion.p
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
+            transition={{ duration: 0.6, delay: 0.18 }}
             className="mx-auto mt-6 max-w-xl text-base leading-7 text-slate-600 sm:mt-7 sm:text-lg sm:leading-8 lg:mx-0"
           >
             Dolphin POS shows the cash price beside the card price on every ticket, so card
@@ -118,7 +125,7 @@ export default function Hero({ onWatchVideo }) {
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.65 }}
+            transition={{ duration: 0.6, delay: 0.24 }}
             className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-3.5 lg:justify-start"
           >
             <Button onClick={openModal} className="shine w-full px-7 py-3.5 text-base sm:w-auto">Book a Demo</Button>

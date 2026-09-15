@@ -68,7 +68,7 @@ export default function PartnerProgram() {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             For every business you refer to Dolphin POS that successfully signs up, you win $500. No fine print or strings attached.
           </p>
-          <button onClick={scrollToForm} className="group mx-auto mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-700">
+          <button onClick={scrollToForm} className="group mx-auto mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-800">
             Become a Referral Partner
           </button>
         </Reveal>
@@ -176,7 +176,7 @@ export default function PartnerProgram() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Submitting…' : <>Submit Referral <Send size={15} /></>}
                   </button>
                 </form>
@@ -212,7 +212,7 @@ export default function PartnerProgram() {
       </section>
 
       <section className="px-5 py-24 lg:px-8 lg:py-28">
-        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-500 to-dolphin-700 px-8 py-16 text-center sm:px-16">
+        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-700 to-dolphin-900 px-8 py-16 text-center sm:px-16">
           <h2 className="text-balance mx-auto max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl">Start earning $500 per referral today!</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-dolphin-100">Unlimited bonuses await you. Get started.</p>
           <button onClick={scrollToForm} className="mx-auto mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-dolphin-800 shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-50">

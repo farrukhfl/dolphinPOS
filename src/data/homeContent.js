@@ -83,15 +83,15 @@ export const heroTrustPoints = [
 ]
 
 export const heroStats = [
-  { value: 1000, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: '+', label: 'Businesses powered' },
-  { value: 50, format: (n) => Math.round(n).toLocaleString(), prefix: '$', suffix: 'M+', label: 'Processed annually' },
+  { value: 1000, format: (n) => Math.round(n).toLocaleString('en-US'), prefix: '', suffix: '+', label: 'Businesses powered' },
+  { value: 50, format: (n) => Math.round(n).toLocaleString('en-US'), prefix: '$', suffix: 'M+', label: 'Processed annually' },
   { value: 4.9, format: (n) => n.toFixed(1), prefix: '', suffix: '/5', label: 'Merchant rating' },
 ]
 
 export const bigStats = [
-  { value: 100, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: '%', label: 'Of the card processing fee covered at checkout, not by your margin' },
-  { value: 50, format: (n) => Math.round(n).toLocaleString(), prefix: '$', suffix: 'M+', label: 'In annual payment volume running through Dolphin POS' },
-  { value: 3, format: (n) => Math.round(n).toLocaleString(), prefix: '', suffix: ' days', label: 'From signed paperwork to ringing up your first sale' },
+  { value: 100, format: (n) => Math.round(n).toLocaleString('en-US'), prefix: '', suffix: '%', label: 'Of the card processing fee covered at checkout, not by your margin' },
+  { value: 50, format: (n) => Math.round(n).toLocaleString('en-US'), prefix: '$', suffix: 'M+', label: 'In annual payment volume running through Dolphin POS' },
+  { value: 3, format: (n) => Math.round(n).toLocaleString('en-US'), prefix: '', suffix: ' days', label: 'From signed paperwork to ringing up your first sale' },
 ]
 
 // Segments Dolphin POS ships a preconfigured register for. Rendered as the

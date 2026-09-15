@@ -13,7 +13,7 @@ export default function Pricing() {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Pay $0 credit card processing with built-in dual pricing. Cancel or switch anytime. No strings attached. No hidden fees.
           </p>
-          <p className="mt-4 text-xs font-semibold text-slate-400">Prices shown are only available online.</p>
+          <p className="mt-4 text-xs font-semibold text-slate-500">Prices shown are only available online.</p>
         </Reveal>
       </section>
 

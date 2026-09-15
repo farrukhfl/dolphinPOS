@@ -11,7 +11,7 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dolphin-600 text-white">
+    <footer className="bg-dolphin-700 text-white">
       <div className="border-b border-white/15">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 py-14 text-center lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div>
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {footerColumns.map((col) => (
             <div key={col.heading}>
-              <h3 className="text-sm font-bold tracking-wide text-white">{col.heading}</h3>
+              <h2 className="text-sm font-bold tracking-wide text-white">{col.heading}</h2>
               <ul className="mt-5 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
@@ -63,7 +63,7 @@ export default function Footer() {
           ))}
 
           <div>
-            <h3 className="text-sm font-bold tracking-wide text-white">Quick Links</h3>
+            <h2 className="text-sm font-bold tracking-wide text-white">Quick Links</h2>
             <ul className="mt-5 space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
@@ -83,7 +83,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-dolphin-200 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-dolphin-100 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Dolphin POS, a Dolphin Merchant Services product. All rights reserved.</p>
           <div className="flex gap-5">
             <Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link>

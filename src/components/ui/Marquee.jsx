@@ -11,13 +11,13 @@ const speeds = {
  * exactly -50%, so the loop has no visible seam. Pauses on hover, and renders
  * as a plain scrollable row when the visitor prefers reduced motion.
  */
-export default function Marquee({ children, speed = 'normal', className = '', fade = true }) {
+export default function Marquee({ children, speed = 'normal', className = '', fade = true, ariaLabel = 'Scrollable content' }) {
   const reduceMotion = useReducedMotion()
   const items = <div className="flex shrink-0 items-center">{children}</div>
 
   if (reduceMotion) {
     return (
-      <div className={`flex gap-4 overflow-x-auto ${className}`}>
+      <div className={`flex gap-4 overflow-x-auto ${className}`} role="region" aria-label={ariaLabel} tabIndex={0}>
         {items}
       </div>
     )

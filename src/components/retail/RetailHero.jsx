@@ -141,7 +141,7 @@ export default function RetailHero() {
                 </span>
                 <div className="text-left">
                   <p className="text-[11px] font-bold leading-tight text-ink">{title}</p>
-                  <p className="text-[10px] leading-tight text-slate-400">{note}</p>
+                  <p className="text-[10px] leading-tight text-slate-500">{note}</p>
                 </div>
               </motion.div>
             ))}

@@ -20,7 +20,7 @@ export default function IndustrySpotlight() {
   return (
     <section className="border-y border-slate-200 bg-white px-5 py-16 lg:px-8 lg:py-20">
       <div className="mx-auto max-w-6xl">
-        <p className="mb-8 text-center text-xs font-bold tracking-[0.25em] text-slate-400">TRUSTED ACROSS EVERY KIND OF RETAIL</p>
+        <p className="mb-8 text-center text-xs font-bold tracking-[0.25em] text-slate-500">TRUSTED ACROSS EVERY KIND OF RETAIL</p>
 
         <div
           className="flex flex-wrap justify-center gap-2"
@@ -34,7 +34,7 @@ export default function IndustrySpotlight() {
                 key={ind.name}
                 onClick={() => setActive(i)}
                 aria-pressed={isActive}
-                className={`relative overflow-hidden rounded-full border px-4 py-2 text-sm font-bold transition ${isActive ? 'border-dolphin-600 bg-dolphin-600 text-white' : 'border-slate-200 text-slate-500 hover:border-dolphin-300 hover:text-dolphin-700'}`}
+                className={`relative overflow-hidden rounded-full border px-4 py-2 text-sm font-bold transition ${isActive ? 'border-dolphin-700 bg-dolphin-700 text-white' : 'border-slate-200 text-slate-500 hover:border-dolphin-300 hover:text-dolphin-700'}`}
               >
                 {ind.name}
                 {isActive && !paused && (

@@ -37,7 +37,7 @@ function DayTimeline() {
                 aria-pressed={active === i}
                 className={`relative shrink-0 rounded-full border px-4 py-2 text-sm font-bold transition duration-300 ${
                   active === i
-                    ? 'border-dolphin-600 bg-dolphin-600 text-white shadow-lg shadow-dolphin-900/20'
+                    ? 'border-dolphin-700 bg-dolphin-700 text-white shadow-lg shadow-dolphin-900/20'
                     : 'border-slate-200 bg-white text-slate-500 hover:border-dolphin-300 hover:text-dolphin-700'
                 }`}
               >

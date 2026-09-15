@@ -31,11 +31,11 @@ export default function PosSystems() {
             {businessTypes.map(({ title, body, icon: Icon, to, disabled }, i) => (
               <Reveal key={title} delay={i * 0.08}>
                 {disabled ? (
-                  <Card className="relative h-full cursor-not-allowed p-8 opacity-60">
-                    <span className="absolute right-5 top-5 rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500">Coming soon</span>
+                  <Card className="relative h-full cursor-not-allowed bg-slate-50 p-8">
+                    <span className="absolute right-5 top-5 rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">Coming soon</span>
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-400"><Icon size={22} /></span>
                     <h3 className="mt-5 text-xl font-bold text-slate-500">{title}</h3>
-                    <p className="mt-2 leading-6 text-slate-400">{body}</p>
+                    <p className="mt-2 leading-6 text-slate-500">{body}</p>
                   </Card>
                 ) : (
                   <Link to={to} className="block h-full">
@@ -87,8 +87,8 @@ export default function PosSystems() {
       </section>
 
       <section className="px-5 py-24 lg:px-8 lg:py-28">
-        <div className="dot-grid relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-500 to-dolphin-700 px-8 py-16 text-center sm:px-16">
-          <p className="mb-4 text-xs font-bold tracking-[0.2em] text-dolphin-200">BUILT-IN SAVINGS</p>
+        <div className="dot-grid relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-700 to-dolphin-900 px-8 py-16 text-center sm:px-16">
+          <p className="mb-4 text-xs font-bold tracking-[0.2em] text-dolphin-100">BUILT-IN SAVINGS</p>
           <h2 className="text-balance mx-auto max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl">
             Every Dolphin POS system comes with dual pricing built in.
           </h2>
@@ -106,7 +106,7 @@ export default function PosSystems() {
                 <button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition ${activeTab === key ? 'bg-dolphin-600 text-white' : 'text-slate-500 hover:text-dolphin-700'}`}
+                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition ${activeTab === key ? 'bg-dolphin-700 text-white' : 'text-slate-500 hover:text-dolphin-700'}`}
                 >
                   <Icon size={16} /> {label}
                 </button>

@@ -55,7 +55,7 @@ export default function ContactUs() {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Answer a few questions to connect with our sales team and see if you qualify for the complete Dolphin POS system for just $49.99*.
           </p>
-          <p className="mt-3 text-xs text-slate-400">*Limited-time offer. U.S. businesses only.</p>
+          <p className="mt-3 text-xs text-slate-500">*Limited-time offer. U.S. businesses only.</p>
         </Reveal>
       </section>
 
@@ -102,7 +102,7 @@ export default function ContactUs() {
                   </Field>
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Sending…' : <>Start the Conversation <Send size={15} /></>}
                   </button>
                 </form>
@@ -129,7 +129,7 @@ export default function ContactUs() {
                   <h3 className="mt-5 text-lg font-bold text-ink">{title}</h3>
                   <p className="mt-2 text-sm text-slate-600">{body}</p>
                   {href ? <a href={href} className="mt-3 block font-bold text-dolphin-700">{detail}</a> : <p className="mt-3 font-bold text-dolphin-700">{detail}</p>}
-                  <p className="mt-1 text-xs text-slate-400">{note}</p>
+                  <p className="mt-1 text-xs text-slate-500">{note}</p>
                 </Card>
               </Reveal>
             ))}
@@ -154,7 +154,7 @@ export default function ContactUs() {
       </section>
 
       <section className="px-5 py-24 lg:px-8 lg:py-28">
-        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-500 to-dolphin-700 px-8 py-16 text-center sm:px-16">
+        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-700 to-dolphin-900 px-8 py-16 text-center sm:px-16">
           <h2 className="text-balance mx-auto max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl">Ready to experience Dolphin POS?</h2>
           <a href={PHONE_TEL} className="group mx-auto mt-9 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-dolphin-800 shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-50">
             <Phone size={16} /> Call Sales: {PHONE}

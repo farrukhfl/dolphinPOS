@@ -21,15 +21,19 @@ export default function DualPricing() {
         </Reveal>
       </section>
 
-      <StepFlow
-        eyebrow="How it works"
-        title="How dual pricing works"
-        body="Three things happen at the counter. None of them need your staff to remember a rule."
-        steps={howItWorks}
-        variant="cover"
-      />
+      {/* Everything below the calculator is off-screen on first paint — see
+          .cv-auto in index.css for why this matters more than lazy images. */}
+      <div className="cv-auto">
+        <StepFlow
+          eyebrow="How it works"
+          title="How dual pricing works"
+          body="Three things happen at the counter. None of them need your staff to remember a rule."
+          steps={howItWorks}
+          variant="cover"
+        />
+      </div>
 
-      <section className="px-5 py-24 lg:px-8 lg:py-28">
+      <section className="cv-auto px-5 py-24 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <Reveal><SectionHeading eyebrow="WHY DUAL PRICING" title="Built to grow your bottom line" align="center" className="mx-auto" /></Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -46,9 +50,11 @@ export default function DualPricing() {
         </div>
       </section>
 
-      <HardwareShowcase />
+      <div className="cv-auto">
+        <HardwareShowcase />
+      </div>
 
-      <section className="bg-dolphin-50 px-5 py-24 lg:px-8 lg:py-28">
+      <section className="cv-auto bg-dolphin-50 px-5 py-24 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-6xl">
           <Reveal><SectionHeading eyebrow="REAL-TIME INSIGHTS" title="See your savings as they happen" align="center" className="mx-auto" /></Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -64,11 +70,17 @@ export default function DualPricing() {
         </div>
       </section>
 
-      <IndustryGrid />
+      <div className="cv-auto">
+        <IndustryGrid />
+      </div>
 
-      <FAQAccordion items={faqs} title="Dual pricing, answered" body="What merchants ask most before turning on dual pricing." />
+      <div className="cv-auto">
+        <FAQAccordion items={faqs} title="Dual pricing, answered" body="What merchants ask most before turning on dual pricing." />
+      </div>
 
-      <FinalCTA />
+      <div className="cv-auto">
+        <FinalCTA />
+      </div>
     </>
   )
 }

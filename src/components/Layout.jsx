@@ -8,10 +8,17 @@ import BookDemoModal from './BookDemoModal'
 import StickyCTA from './StickyCTA'
 import { BookDemoProvider } from '../lib/BookDemoContext'
 
-/** Page chunks load lazily, so a route switch briefly has nothing to show. */
+/**
+ * Page chunks load lazily, so a route switch briefly has nothing to show.
+ * Sized to a full viewport (not just a small centered spinner box) so the
+ * footer stays below the fold while the real chunk loads — a short fallback
+ * puts the footer directly under the spinner, and swapping in a much taller
+ * page then yanks it far down, which is exactly the kind of layout shift
+ * Core Web Vitals' CLS metric penalizes.
+ */
 function PageFallback() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center px-5 py-24" aria-hidden="true">
+    <div className="flex min-h-screen items-center justify-center px-5 py-24" aria-hidden="true">
       <div className="h-9 w-9 animate-spin rounded-full border-2 border-dolphin-200 border-t-dolphin-600" />
     </div>
   )

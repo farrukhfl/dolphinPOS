@@ -14,6 +14,13 @@
   .text-balance { text-wrap: balance; }
   .interactive-card { @apply transition duration-300 hover:-translate-y-1 hover:border-dolphin-200 hover:shadow-soft; }
   .icon-lift { @apply transition duration-300 group-hover:-translate-y-0.5 group-hover:scale-105; }
+  /* Skips layout/paint/style work for off-screen sections on long pages
+     (content-heavy landing pages mount a dozen+ animated sections at once,
+     most of them below the fold) until they're about to scroll into view.
+     contain-intrinsic-size reserves an estimated height up front so nothing
+     shifts once the real content takes over — an unsupported browser just
+     ignores both properties and renders normally. */
+  .cv-auto { content-visibility: auto; contain-intrinsic-size: 0 900px; }
   .dot-grid {
     position: relative;
     z-index: 0;
@@ -55,9 +62,17 @@
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
-  height: 6px;
+  width: 100%;
+  /* Touch target is the full 24px box; the visual track stays a slim 6px bar by
+     painting the gradient only inside the content-box (padding pads the hit area). */
+  height: 24px;
+  padding: 9px 0;
+  box-sizing: border-box;
   border-radius: 9999px;
-  background: linear-gradient(to right, #0C79F7 var(--range-progress, 50%), #dcebff var(--range-progress, 50%));
+  background-color: transparent;
+  background-clip: content-box;
+  background-image: linear-gradient(to right, #0C79F7 var(--range-progress, 50%), #dcebff var(--range-progress, 50%));
+  cursor: pointer;
 }
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;

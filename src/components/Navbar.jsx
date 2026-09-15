@@ -17,7 +17,7 @@ function Dropdown({ label, items, id }) {
   }, [])
 
   return (
-    <div className="relative -my-5 py-5" ref={ref} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) }}>
+    <div className="relative -my-5 py-5" ref={ref} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) }}>
       <button className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-dolphin-700" onClick={() => setOpen((v) => !v)} onKeyDown={(event) => event.key === 'Escape' && setOpen(false)} aria-expanded={open} aria-haspopup="true" aria-controls={id}>
         {label} <ChevronDown size={15} className={`transition ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -49,7 +49,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      <div className="hidden bg-dolphin-600 text-white sm:block">
+      <div className="hidden bg-dolphin-700 text-white sm:block">
         <div className="mx-auto flex max-w-7xl items-center justify-end gap-6 px-5 py-2 text-xs lg:px-8">
           <a href={PHONE_TEL} className="flex items-center gap-1.5 font-semibold hover:text-dolphin-100">
             <Phone size={13} /> Call Sales: {PHONE}
@@ -91,7 +91,7 @@ export default function Navbar() {
                 <NavLink key={link.to} to={link.to} className={mobileLinkClass}>{link.label}</NavLink>
               ))}
               <div className="my-2 border-t border-slate-100" />
-              <p className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-400">Products</p>
+              <p className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-500">Products</p>
               {productsDropdown.map(({ label, to }) => (
                 <NavLink key={to} to={to} className="flex items-center gap-3 rounded-lg px-3 py-2 font-semibold hover:bg-dolphin-50">
                   <LayoutGrid size={16} className="text-dolphin-700" /> {label}
@@ -99,7 +99,7 @@ export default function Navbar() {
               ))}
               <NavLink to="/pricing" className={mobileLinkClass}>POS Plans</NavLink>
               <div className="my-2 border-t border-slate-100" />
-              <p className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-400">Explore</p>
+              <p className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-500">Explore</p>
               {exploreDropdown.map(({ label, to }) => (
                 <NavLink key={to} to={to} className={mobileLinkClass}>{label}</NavLink>
               ))}

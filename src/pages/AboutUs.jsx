@@ -87,12 +87,12 @@ export default function AboutUs() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {industries.map(({ title, body, icon: Icon, to, linkText, disabled }, i) => (
               <Reveal key={title} delay={i * 0.08}>
-                <Card className={`h-full p-7 ${disabled ? 'opacity-60' : 'interactive-card'}`}>
+                <Card className={`h-full p-7 ${disabled ? 'bg-slate-50' : 'interactive-card'}`}>
                   <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${disabled ? 'bg-slate-100 text-slate-400' : 'bg-dolphin-50 text-dolphin-700'}`}><Icon size={22} /></span>
                   <h3 className={`mt-5 text-lg font-bold ${disabled ? 'text-slate-500' : 'text-ink'}`}>{title}</h3>
-                  <p className={`mt-2 text-sm leading-6 ${disabled ? 'text-slate-400' : 'text-slate-600'}`}>{body}</p>
+                  <p className={`mt-2 text-sm leading-6 ${disabled ? 'text-slate-500' : 'text-slate-600'}`}>{body}</p>
                   {disabled ? (
-                    <span className="mt-4 inline-block text-sm font-bold text-slate-400">{linkText}</span>
+                    <span className="mt-4 inline-block text-sm font-bold text-slate-500">{linkText}</span>
                   ) : (
                     <Link to={to} className="mt-4 inline-block text-sm font-bold text-dolphin-700 hover:text-dolphin-800">{linkText} →</Link>
                   )}
@@ -184,7 +184,7 @@ export default function AboutUs() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Sending…' : <>Start the Conversation <Send size={15} /></>}
                   </button>
                 </form>

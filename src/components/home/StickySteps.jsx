@@ -37,9 +37,9 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
         <div className="relative flex flex-col items-center">
           <motion.span
             animate={{
-              backgroundColor: isActive ? '#0C79F7' : '#ffffff',
-              color: isActive ? '#ffffff' : '#94a3b8',
-              borderColor: isActive ? '#0C79F7' : '#e2e8f0',
+              backgroundColor: isActive ? '#0861c6' : '#ffffff',
+              color: isActive ? '#ffffff' : '#475569',
+              borderColor: isActive ? '#0861c6' : '#e2e8f0',
               scale: isActive ? 1.06 : 1,
             }}
             transition={{ duration: 0.4 }}
@@ -53,7 +53,7 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
             step carries its own image, so fading two of the three would just
             read as disabled content. */}
         <motion.div
-          animate={{ opacity: !dimInactive || isActive ? 1 : 0.45 }}
+          animate={{ opacity: !dimInactive || isActive ? 1 : 0.85 }}
           transition={{ duration: 0.4 }}
           className="pt-1"
         >

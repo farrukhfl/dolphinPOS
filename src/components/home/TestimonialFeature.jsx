@@ -75,7 +75,7 @@ export default function TestimonialFeature() {
                     &ldquo;{active.quote}&rdquo;
                   </p>
                   <footer className="mt-8 flex items-center gap-4">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-dolphin-500 to-dolphin-700 text-base font-extrabold text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-dolphin-700 to-dolphin-900 text-base font-extrabold text-white">
                       {active.name.charAt(0)}
                     </span>
                     <div>
@@ -104,15 +104,17 @@ export default function TestimonialFeature() {
               >
                 <ArrowRight size={17} />
               </button>
-              <div className="ml-2 flex gap-1.5">
+              <div className="ml-2 flex items-center gap-1.5">
                 {testimonials.map((t, i) => (
                   <button
                     key={t.name}
                     type="button"
                     onClick={() => setIndex(i)}
                     aria-label={`Story ${i + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-8 bg-dolphin-400' : 'w-4 bg-white/20 hover:bg-white/40'}`}
-                  />
+                    className="group flex items-center justify-center p-2.5"
+                  >
+                    <span className={`block h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-8 bg-dolphin-400' : 'w-4 bg-white/20 group-hover:bg-white/40'}`} />
+                  </button>
                 ))}
               </div>
             </div>

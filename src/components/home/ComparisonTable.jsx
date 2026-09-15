@@ -1,7 +1,9 @@
+import { useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Check, X } from 'lucide-react'
+import { Check, ChevronRight, X } from 'lucide-react'
 import Reveal from '../Reveal'
 import { comparisonRows } from '../../data/homeContent'
+import { useScrollEdges } from '../../lib/useScrollEdges'
 
 const HIGHLIGHT = 'bg-dolphin-50/80 border-x border-dolphin-200'
 
@@ -28,48 +30,69 @@ function Cell({ value, highlight }) {
  */
 export default function ComparisonTable() {
   const reduceMotion = useReducedMotion()
+  const scrollRef = useRef(null)
+  const { showLeftFade, showRightFade } = useScrollEdges(scrollRef)
 
   return (
     <Reveal>
-      <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[620px] border-collapse text-left text-sm">
-            <caption className="sr-only">Dolphin POS compared with a traditional point-of-sale system</caption>
-            <colgroup>
-              <col className="w-[40%]" />
-              <col className="w-[30%]" />
-              <col className="w-[30%]" />
-            </colgroup>
-            <thead>
-              <tr className="border-b border-slate-200">
-                <th scope="col" className="px-6 py-5 text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Feature</th>
-                {/* Dolphin column is tinted cell-by-cell so the highlight can never
-                    drift out of alignment the way an absolute overlay would. */}
-                <th scope="col" className={`${HIGHLIGHT} border-t-0 px-6 py-5`}>
-                  <span className="flex items-center gap-2 text-base font-extrabold text-dolphin-700">
-                    <span className="h-2 w-2 rounded-full bg-dolphin-600" /> Dolphin POS
-                  </span>
-                </th>
-                <th scope="col" className="px-6 py-5 text-base font-bold text-slate-400">Traditional POS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row, i) => (
-                <motion.tr
-                  key={row.feature}
-                  initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="border-b border-slate-100 last:border-0"
-                >
-                  <th scope="row" className="px-6 py-5 text-left font-semibold text-ink">{row.feature}</th>
-                  <td className={`${HIGHLIGHT} px-6 py-5`}><Cell value={row.dolphin} highlight /></td>
-                  <td className="px-6 py-5"><Cell value={row.traditional} /></td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
+      <div>
+        {showRightFade && (
+          <p className="mb-2 text-center text-xs font-semibold text-dolphin-700 sm:hidden">Swipe to see the full comparison →</p>
+        )}
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+          {showRightFade && (
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-14 items-center justify-end bg-gradient-to-l from-white to-transparent pr-1.5" aria-hidden="true">
+              <ChevronRight size={16} className="animate-pulse text-dolphin-400" />
+            </div>
+          )}
+          {showLeftFade && (
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-white to-transparent" aria-hidden="true" />
+          )}
+          <div
+            ref={scrollRef}
+            className="overflow-x-auto"
+            role="region"
+            aria-label="Dolphin POS compared with a traditional point-of-sale system"
+            tabIndex={0}
+          >
+            <table className="w-full min-w-[620px] border-collapse text-left text-sm">
+              <caption className="sr-only">Dolphin POS compared with a traditional point-of-sale system</caption>
+              <colgroup>
+                <col className="w-[40%]" />
+                <col className="w-[30%]" />
+                <col className="w-[30%]" />
+              </colgroup>
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th scope="col" className="px-6 py-5 text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Feature</th>
+                  {/* Dolphin column is tinted cell-by-cell so the highlight can never
+                      drift out of alignment the way an absolute overlay would. */}
+                  <th scope="col" className={`${HIGHLIGHT} border-t-0 px-6 py-5`}>
+                    <span className="flex items-center gap-2 text-base font-extrabold text-dolphin-700">
+                      <span className="h-2 w-2 rounded-full bg-dolphin-600" /> Dolphin POS
+                    </span>
+                  </th>
+                  <th scope="col" className="px-6 py-5 text-base font-bold text-slate-500">Traditional POS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row, i) => (
+                  <motion.tr
+                    key={row.feature}
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.4, delay: i * 0.05 }}
+                    className="border-b border-slate-100 last:border-0"
+                  >
+                    <th scope="row" className="px-6 py-5 text-left font-semibold text-ink">{row.feature}</th>
+                    <td className={`${HIGHLIGHT} px-6 py-5`}><Cell value={row.dolphin} highlight /></td>
+                    <td className="px-6 py-5"><Cell value={row.traditional} /></td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </Reveal>

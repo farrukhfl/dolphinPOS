@@ -11,17 +11,49 @@ import { Clock, PlayCircle, VideoOff, X } from 'lucide-react'
 export default function VideoModal({ video, onClose }) {
   const hasFile = Boolean(video?.src)
   const dialogRef = useRef(null)
+  const previouslyFocused = useRef(null)
 
+  // Mirrors BookDemoModal: Escape closes it, Tab/Shift+Tab stay looped inside
+  // it while open, and focus returns to whatever opened it once it closes.
   useEffect(() => {
     if (!video) return undefined
-    const onKey = (event) => { if (event.key === 'Escape') onClose() }
-    document.addEventListener('keydown', onKey)
+    previouslyFocused.current = document.activeElement
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     dialogRef.current?.focus()
+
+    const getFocusable = () => {
+      const dialog = dialogRef.current
+      if (!dialog) return []
+      return Array.from(dialog.querySelectorAll('a[href], button, input, select, textarea, video, [tabindex]'))
+        .filter((el) => !el.disabled && el.tabIndex !== -1 && el.offsetParent !== null)
+    }
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.stopPropagation()
+        onClose()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown, true)
     return () => {
-      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('keydown', onKeyDown, true)
       document.body.style.overflow = prevOverflow
+      previouslyFocused.current?.focus?.()
     }
   }, [video, onClose])
 
@@ -82,7 +114,7 @@ export default function VideoModal({ video, onClose }) {
             <div className="p-6">
               <h3 id="video-modal-title" className="text-lg font-bold text-ink">{video.title}</h3>
               <p className="mt-1.5 text-sm leading-6 text-slate-600">{video.description}</p>
-              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-slate-500">
                 <Clock size={13} /> {video.duration}
               </div>
               {!hasFile && !video.available && (

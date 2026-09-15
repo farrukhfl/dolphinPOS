@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Button({ children, to, href, variant = 'primary', arrow = true, className = '', type = 'button', ...props }) {
   const variants = {
-    primary: 'bg-dolphin-600 text-white shadow-lg shadow-dolphin-900/10 hover:-translate-y-0.5 hover:bg-dolphin-700',
+    primary: 'bg-dolphin-700 text-white shadow-lg shadow-dolphin-900/10 hover:-translate-y-0.5 hover:bg-dolphin-800',
     secondary: 'border border-slate-300 bg-white text-ink hover:border-dolphin-600 hover:text-dolphin-700',
     light: 'bg-white text-dolphin-800 shadow-lg shadow-dolphin-900/10 hover:-translate-y-0.5 hover:bg-dolphin-50',
     outlineLight: 'border border-white/60 bg-transparent text-white hover:-translate-y-0.5 hover:bg-white/10',

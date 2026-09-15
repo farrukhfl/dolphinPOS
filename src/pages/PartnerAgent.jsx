@@ -66,7 +66,7 @@ export default function PartnerAgent() {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Partner with Dolphin POS to help businesses adopt a better POS system while earning recurring monthly commissions from your merchant portfolio.
           </p>
-          <button onClick={scrollToForm} className="group mx-auto mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-700">
+          <button onClick={scrollToForm} className="group mx-auto mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-800">
             Become a Partner
           </button>
         </Reveal>
@@ -92,7 +92,7 @@ export default function PartnerAgent() {
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-dolphin-50 text-dolphin-700"><Icon size={20} /></span>
                   <h3 className="mt-4 text-base font-bold text-ink">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600">{body}</p>
-                  <span className="absolute -top-2.5 left-5 rounded-full bg-dolphin-600 px-2 py-0.5 text-[10px] font-bold text-white">{i + 1}</span>
+                  <span className="absolute -top-2.5 left-5 rounded-full bg-dolphin-700 px-2 py-0.5 text-[10px] font-bold text-white">{i + 1}</span>
                 </div>
               </Reveal>
             ))}
@@ -194,7 +194,7 @@ export default function PartnerAgent() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="flex w-full min-h-12 items-center justify-center gap-2 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Submitting…' : <>Submit <Send size={15} /></>}
                   </button>
                 </form>
@@ -207,7 +207,7 @@ export default function PartnerAgent() {
       <FAQAccordion items={faqs} title="Partner program, answered" body="What agents ask most before joining the Dolphin POS partner program." />
 
       <section className="px-5 py-24 lg:px-8 lg:py-28">
-        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-500 to-dolphin-700 px-8 py-16 text-center sm:px-16">
+        <div className="dot-grid blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gradient-to-br from-dolphin-700 to-dolphin-900 px-8 py-16 text-center sm:px-16">
           <h2 className="text-balance mx-auto max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl">Join the Partner Program</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-dolphin-100">Help businesses save thousands on credit card processing with Dolphin POS.</p>
           <a href={PHONE_TEL} className="group mx-auto mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-dolphin-800 shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-50">

@@ -93,7 +93,7 @@ export default function IndustryTabs() {
                 type="button"
                 onClick={() => setActive(i)}
                 aria-pressed={i === active}
-                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold transition ${i === active ? 'border-dolphin-600 bg-dolphin-600 text-white' : 'border-slate-200 bg-white text-slate-500'}`}
+                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold transition ${i === active ? 'border-dolphin-700 bg-dolphin-700 text-white' : 'border-slate-200 bg-white text-slate-500'}`}
               >
                 {ind.name}
               </button>
@@ -151,7 +151,7 @@ export default function IndustryTabs() {
               </div>
 
               <div className="p-6 sm:p-8">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Turned on for you</p>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Turned on for you</p>
                 <AnimatePresence mode="wait">
                   <motion.ul
                     key={item.name}
@@ -180,7 +180,7 @@ export default function IndustryTabs() {
 
                 <div className="mt-7 flex flex-wrap items-center gap-4 border-t border-slate-100 pt-6">
                   <Button onClick={openModal} className="shine">See it on your counter</Button>
-                  <p className="text-xs font-semibold text-slate-400">Setup in 1&ndash;3 business days</p>
+                  <p className="text-xs font-semibold text-slate-500">Setup in 1&ndash;3 business days</p>
                 </div>
               </div>
             </div>

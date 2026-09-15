@@ -66,16 +66,16 @@ export default function HowToSetup() {
                   <div className="flex-1">
                     <h3 className="text-base font-bold text-ink">{step.title}</h3>
                     <p className="mt-1 text-sm leading-6 text-slate-500">{step.description}</p>
-                    <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+                    <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-slate-500">
                       <Clock size={12} /> {step.duration}
                     </div>
                   </div>
                   {step.available ? (
-                    <button onClick={() => setActiveVideo(step)} className="group inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full bg-dolphin-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-dolphin-700">
+                    <button onClick={() => setActiveVideo(step)} className="group inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full bg-dolphin-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-dolphin-800">
                       <PlayCircle size={16} /> Watch Video
                     </button>
                   ) : (
-                    <button onClick={() => setActiveVideo(step)} className="inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full bg-slate-100 px-5 py-2.5 text-sm font-bold text-slate-400 transition hover:bg-slate-200">
+                    <button onClick={() => setActiveVideo(step)} className="inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full bg-slate-100 px-5 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-200">
                       <VideoOff size={16} /> Video Coming Soon
                     </button>
                   )}
@@ -121,7 +121,7 @@ export default function HowToSetup() {
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-600">
             Once you've completed the 7 steps, you're ready to run your first sale.
           </p>
-          <a href={DOLPHIN_LOGIN_PORTAL} target="_blank" rel="noopener noreferrer" className="mx-auto mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-dolphin-600 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-700">
+          <a href={DOLPHIN_LOGIN_PORTAL} target="_blank" rel="noopener noreferrer" className="mx-auto mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-dolphin-700 px-6 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-dolphin-800">
             Log in to Dolphin POS
           </a>
         </Reveal>

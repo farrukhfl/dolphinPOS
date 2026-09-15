@@ -7,7 +7,7 @@ export default function LegalPage({ title, lastUpdated, intro, sections }) {
         <div>
           <div className="lg:sticky lg:top-28">
             <h1 className="text-3xl font-extrabold text-ink">{title}</h1>
-            <p className="mt-2 text-sm font-semibold text-slate-400">Last Updated: {lastUpdated}</p>
+            <p className="mt-2 text-sm font-semibold text-slate-500">Last Updated: {lastUpdated}</p>
             <nav aria-label="Section navigation" className="mt-8 hidden border-t border-slate-200 pt-6 lg:block">
               <ul className="max-h-[60vh] space-y-1 overflow-y-auto pr-2 text-sm">
                 {sections.map((section, i) => (

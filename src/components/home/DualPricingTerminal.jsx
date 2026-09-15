@@ -53,7 +53,7 @@ export default function DualPricingTerminal() {
             <span className="h-2.5 w-2.5 rounded-full bg-dolphin-500" />
             <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Dolphin POS</span>
           </div>
-          <span className="tabular text-[11px] font-semibold text-slate-400">Order #1042</span>
+          <span className="tabular text-[11px] font-semibold text-slate-500">Order #1042</span>
         </div>
 
         <div className="space-y-3 px-6 pt-6">
@@ -66,7 +66,7 @@ export default function DualPricingTerminal() {
               className="flex items-center justify-between text-sm"
             >
               <span className="text-slate-600">
-                <span className="mr-2 inline-block w-4 tabular font-bold text-slate-400">{line.qty}&times;</span>
+                <span className="mr-2 inline-block w-4 tabular font-bold text-slate-500">{line.qty}&times;</span>
                 {line.name}
               </span>
               <span className="tabular font-semibold text-ink">${money(line.price)}</span>
@@ -82,7 +82,7 @@ export default function DualPricingTerminal() {
         </div>
 
         <div className="px-6 pt-5">
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">Customer pays with</p>
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Customer pays with</p>
           <div className="relative flex gap-1 rounded-2xl bg-slate-100 p-1">
             {MODES.map(({ id, label, icon: Icon }) => (
               <button
@@ -90,12 +90,12 @@ export default function DualPricingTerminal() {
                 type="button"
                 onClick={() => { setMode(id); setLocked(true) }}
                 aria-pressed={mode === id}
-                className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors ${mode === id ? 'text-white' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors ${mode === id ? 'text-white' : 'text-slate-600 hover:text-slate-700'}`}
               >
                 {mode === id && (
                   <motion.span
                     layoutId="pay-mode-pill"
-                    className="absolute inset-0 rounded-xl bg-dolphin-600 shadow-lg shadow-dolphin-600/30"
+                    className="absolute inset-0 rounded-xl bg-dolphin-700 shadow-lg shadow-dolphin-600/30"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                   />
                 )}
@@ -142,8 +142,8 @@ export default function DualPricingTerminal() {
 
         <div className="border-t border-slate-100 bg-slate-50/70 px-6 py-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">You deposit</span>
-            <span className="tabular text-lg font-extrabold text-emerald-600">${money(SUBTOTAL)}</span>
+            <span className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">You deposit</span>
+            <span className="tabular text-lg font-extrabold text-emerald-700">${money(SUBTOTAL)}</span>
           </div>
         </div>
       </motion.div>

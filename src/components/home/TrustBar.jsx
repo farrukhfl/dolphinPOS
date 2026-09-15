@@ -32,7 +32,7 @@ export default function TrustBar() {
   return (
     <section className="relative overflow-hidden border-y border-slate-200 bg-slate-50/70 py-12 lg:py-16">
       <Reveal>
-        <p className="mb-9 px-5 text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+        <p className="mb-9 px-5 text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
           Running the register for 1,000+ independent operators
         </p>
       </Reveal>
@@ -43,12 +43,12 @@ export default function TrustBar() {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Marquee speed="slow">
+        <Marquee speed="slow" ariaLabel="Industries we serve">
           {industries.map((item) => <PhotoCard key={item.name} item={item} />)}
         </Marquee>
       </motion.div>
 
-      <Marquee className="mt-4" speed="reverse">
+      <Marquee className="mt-4" speed="reverse" ariaLabel="More business types we serve">
         {extraBusinessTypes.map((label) => (
           <span
             key={label}

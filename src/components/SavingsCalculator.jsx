@@ -11,22 +11,24 @@ const formatWhole = (value) => Math.round(value).toLocaleString('en-US')
 
 function Field({ label, prefix, suffix, value, onChange, min, max, step }) {
   const progress = ((value - min) / (max - min)) * 100
+  const inputId = `savings-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <label className="text-sm font-semibold text-slate-600">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-semibold text-slate-600">{label}</label>
         <div className="flex items-center rounded-lg border border-slate-300 bg-white px-2.5 py-1">
-          {prefix && <span className="text-sm font-bold text-slate-400">{prefix}</span>}
+          {prefix && <span className="text-sm font-bold text-slate-500">{prefix}</span>}
           <input
+            id={inputId}
             type="number"
             value={value}
             min={min}
             max={max}
             step={step}
             onChange={(e) => onChange(Number(e.target.value))}
-            className="w-20 border-none bg-transparent p-0 text-right text-sm font-bold text-ink focus:outline-none focus:ring-0"
+            className="w-20 rounded border-none bg-transparent p-0 text-right text-sm font-bold text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-dolphin-500"
           />
-          {suffix && <span className="text-sm font-bold text-slate-400">{suffix}</span>}
+          {suffix && <span className="text-sm font-bold text-slate-500">{suffix}</span>}
         </div>
       </div>
       <input
@@ -70,7 +72,7 @@ export default function SavingsCalculator({ showHeading = true }) {
         {showHeading && (
           <>
             <p className="mb-1 text-xs font-bold tracking-[0.2em] text-dolphin-700">SAVINGS CALCULATOR</p>
-            <h3 className="text-2xl font-extrabold text-ink">See what dual pricing saves you</h3>
+            <h2 className="text-2xl font-extrabold text-ink">See what dual pricing saves you</h2>
           </>
         )}
         <div className={`space-y-7 ${showHeading ? 'mt-8' : ''}`}>
@@ -78,14 +80,14 @@ export default function SavingsCalculator({ showHeading = true }) {
           <Field label="Average Ticket Size" prefix="$" value={avgTicket} onChange={setAvgTicket} min={5} max={200} step={1} />
           <Field label="Current Processing Rate" suffix="%" value={rate} onChange={setRate} min={1} max={5} step={0.1} />
         </div>
-        <p className="mt-auto pt-8 text-xs leading-5 text-slate-400">
+        <p className="mt-auto pt-8 text-xs leading-5 text-slate-500">
           Estimate based on your current effective rate versus a flat $0.47 per transaction on
           Dolphin POS. Your quote is confirmed against a real statement during the demo.
         </p>
       </div>
 
-      <div className="flex flex-col justify-center bg-gradient-to-br from-dolphin-500 to-dolphin-700 p-8 text-white sm:p-10">
-        <div className="flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-dolphin-200">
+      <div className="flex flex-col justify-center bg-gradient-to-br from-dolphin-700 to-dolphin-900 p-8 text-white sm:p-10">
+        <div className="flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-dolphin-100">
           <PiggyBank size={16} /> YOUR POTENTIAL ANNUAL SAVINGS
         </div>
         <p className="mt-3 text-5xl font-extrabold tabular-nums sm:text-6xl">
@@ -99,15 +101,15 @@ export default function SavingsCalculator({ showHeading = true }) {
           <div className="flex items-start gap-2.5">
             <Receipt size={17} className="mt-0.5 shrink-0 text-dolphin-300" />
             <div>
-              <p className="text-xs text-dolphin-200">Fees you pay today</p>
+              <p className="text-xs text-dolphin-100">Fees you pay today</p>
               <p className="text-sm font-bold tabular-nums">${formatWhole(currentAnnualFees)}/yr</p>
             </div>
           </div>
           <div className="flex items-start gap-2.5">
             <TrendingUp size={17} className="mt-0.5 shrink-0 text-dolphin-300" />
             <div>
-              <p className="text-xs text-dolphin-200">Est. monthly transactions</p>
-              <p className="text-sm font-bold tabular-nums">{monthlyTransactions.toLocaleString()}</p>
+              <p className="text-xs text-dolphin-100">Est. monthly transactions</p>
+              <p className="text-sm font-bold tabular-nums">{monthlyTransactions.toLocaleString('en-US')}</p>
             </div>
           </div>
         </div>

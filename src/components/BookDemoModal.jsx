@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarDays, Check, X } from 'lucide-react'
 import { useBookDemo } from '../lib/BookDemoContext'
@@ -7,20 +7,76 @@ import { useBotGuard } from '../lib/useBotGuard'
 
 const PRODUCTS = ['Dolphin POS', 'Dolphin Software', 'Dolphin Hardware']
 
+// toISOString() converts to UTC, which rolls over to the next day hours
+// before local midnight west of UTC (e.g. ~4pm PST) — that made "today" an
+// invalid date-picker choice for most US visitors for a chunk of every
+// evening. Build the date from local components instead.
+const todayLocalISODate = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 const initialForm = { name: '', email: '', phone: '', businessName: '', businessWebsite: '', date: '', product: PRODUCTS[0], consent: false }
 
 export default function BookDemoModal() {
   const { isOpen, closeModal } = useBookDemo()
-  const { honeypotProps, isBot } = useBotGuard(isOpen)
+  const { honeypotProps, isBot } = useBotGuard()
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const dialogRef = useRef(null)
+  const previouslyFocused = useRef(null)
 
   const handleClose = () => {
     closeModal()
     setTimeout(() => { setSubmitted(false); setForm(initialForm); setError(''); setSubmitting(false) }, 300)
   }
+
+  // Standard dialog behavior: Escape closes it, Tab/Shift+Tab stay looped inside
+  // it while open, and focus returns to whatever opened it once it closes.
+  useEffect(() => {
+    if (!isOpen) return undefined
+    previouslyFocused.current = document.activeElement
+    dialogRef.current?.focus()
+
+    const getFocusable = () => {
+      const dialog = dialogRef.current
+      if (!dialog) return []
+      return Array.from(dialog.querySelectorAll('a[href], button, input, select, textarea, [tabindex]'))
+        .filter((el) => !el.disabled && el.tabIndex !== -1 && el.offsetParent !== null)
+    }
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.stopPropagation()
+        handleClose()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    // Capture phase: fires before any other document-level keydown listener
+    // (and isn't skipped if something else in the bubble chain stops
+    // propagation), which is what made Escape-to-close intermittent in
+    // WebKit/Firefox under automated testing.
+    document.addEventListener('keydown', onKeyDown, true)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown, true)
+      previouslyFocused.current?.focus?.()
+    }
+  }, [isOpen])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -62,10 +118,12 @@ export default function BookDemoModal() {
         <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <motion.div className="absolute inset-0 bg-dolphin-900/70 backdrop-blur-sm" onClick={handleClose} aria-hidden="true" />
           <motion.div
+            ref={dialogRef}
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-labelledby="book-demo-title"
-            className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+            className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl outline-none sm:p-8"
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
@@ -84,7 +142,7 @@ export default function BookDemoModal() {
                 <p className="mt-3 text-slate-600">
                   Thanks, {form.name.split(' ')[0] || 'there'}. We'll reach out to confirm your appointment on {form.date || 'your selected date'} for {form.product}.
                 </p>
-                <button className="mt-7 inline-flex min-h-11 items-center justify-center rounded-full bg-dolphin-600 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-dolphin-700" onClick={handleClose}>
+                <button className="mt-7 inline-flex min-h-11 items-center justify-center rounded-full bg-dolphin-700 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-dolphin-800" onClick={handleClose}>
                   Done
                 </button>
               </div>
@@ -116,7 +174,7 @@ export default function BookDemoModal() {
                     </div>
                     <div>
                       <label htmlFor="demo-date" className="mb-1.5 block text-xs font-semibold text-slate-600">Preferred Date</label>
-                      <input id="demo-date" type="date" value={form.date} onChange={update('date')} min={new Date().toISOString().split('T')[0]} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink" />
+                      <input id="demo-date" type="date" value={form.date} onChange={update('date')} min={todayLocalISODate()} className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink" />
                     </div>
                   </div>
 
@@ -145,7 +203,7 @@ export default function BookDemoModal() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="mt-2 w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="mt-2 w-full min-h-12 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Scheduling…' : 'Schedule Appointment'}
                   </button>
                 </form>

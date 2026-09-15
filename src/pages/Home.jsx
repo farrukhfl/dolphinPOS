@@ -24,18 +24,32 @@ export default function Home() {
 
       <TrustBar />
 
-      <PlatformBento />
+      {/* Everything below this point is off-screen on first paint. Deferring
+          their layout/paint work (not just their images) is what actually
+          moves the needle on a content-dense page like this one — see
+          .cv-auto in index.css. */}
+      <div className="cv-auto">
+        <PlatformBento />
+      </div>
 
-      <StickySteps />
+      <div className="cv-auto">
+        <StickySteps />
+      </div>
 
-      <StatsBand />
+      <div className="cv-auto">
+        <StatsBand />
+      </div>
 
-      <IndustryTabs />
+      <div className="cv-auto">
+        <IndustryTabs />
+      </div>
 
-      <SwitchSection />
+      <div className="cv-auto">
+        <SwitchSection />
+      </div>
 
       {/* Run the numbers: calculator first, then the line-by-line comparison */}
-      <section className="bg-slate-50 px-5 py-24 lg:px-8 lg:py-32">
+      <section className="cv-auto bg-slate-50 px-5 py-24 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
@@ -64,15 +78,21 @@ export default function Home() {
         </div>
       </section>
 
-      <TestimonialFeature />
+      <div className="cv-auto">
+        <TestimonialFeature />
+      </div>
 
-      <FAQAccordion
-        items={faqs}
-        title="Straight answers about Dolphin POS"
-        body="What merchants usually want to know before switching to dual pricing."
-      />
+      <div className="cv-auto">
+        <FAQAccordion
+          items={faqs}
+          title="Straight answers about Dolphin POS"
+          body="What merchants usually want to know before switching to dual pricing."
+        />
+      </div>
 
-      <FinalCTA onWatchVideo={() => setVideo(overviewVideo)} />
+      <div className="cv-auto">
+        <FinalCTA onWatchVideo={() => setVideo(overviewVideo)} />
+      </div>
 
       <VideoModal video={video} onClose={() => setVideo(null)} />
     </>

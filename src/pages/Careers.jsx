@@ -47,7 +47,7 @@ export default function Careers() {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Build your career designing and marketing technology and products that shape how businesses work and thrive.
           </p>
-          <p className="mt-3 text-xs font-semibold text-slate-400">On-site, remote, and hybrid opportunities available.</p>
+          <p className="mt-3 text-xs font-semibold text-slate-500">On-site, remote, and hybrid opportunities available.</p>
         </Reveal>
       </section>
 
@@ -85,7 +85,7 @@ export default function Careers() {
                 <div className="relative h-full rounded-2xl border border-slate-200 bg-white p-5 text-center">
                   <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-dolphin-50 text-dolphin-700"><Icon size={19} /></span>
                   <p className="mt-3 text-xs font-bold leading-4 text-ink">{title}</p>
-                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-dolphin-600 px-2 py-0.5 text-[10px] font-bold text-white">{i + 1}</span>
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-dolphin-700 px-2 py-0.5 text-[10px] font-bold text-white">{i + 1}</span>
                 </div>
               </Reveal>
             ))}
@@ -149,7 +149,7 @@ export default function Careers() {
 
                   {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
 
-                  <button type="submit" disabled={submitting} className="w-full min-h-12 rounded-full bg-dolphin-600 text-sm font-bold text-white transition hover:bg-dolphin-700 disabled:opacity-60">
+                  <button type="submit" disabled={submitting} className="w-full min-h-12 rounded-full bg-dolphin-700 text-sm font-bold text-white transition hover:bg-dolphin-800 disabled:opacity-60">
                     {submitting ? 'Submitting…' : 'Submit Application'}
                   </button>
                 </form>

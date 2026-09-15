@@ -29,7 +29,7 @@ export default function HeroShowcase() {
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-dolphin-50 text-dolphin-700"><ShieldCheck size={18} /></span>
         <div>
           <p className="text-xs font-bold text-ink">PCI Compliant</p>
-          <p className="text-[11px] text-slate-400">Bank-level security</p>
+          <p className="text-[11px] text-slate-500">Bank-level security</p>
         </div>
       </motion.div>
 
