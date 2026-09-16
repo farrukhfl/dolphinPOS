@@ -6,6 +6,7 @@ import Footer from './Footer'
 import ScrollProgress from './ScrollProgress'
 import BookDemoModal from './BookDemoModal'
 import StickyCTA from './StickyCTA'
+import Seo from './Seo'
 import { BookDemoProvider } from '../lib/BookDemoContext'
 
 /**
@@ -30,6 +31,7 @@ export default function Layout() {
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }) }, [pathname])
   return (
     <BookDemoProvider>
+      <Seo />
       <ScrollProgress />
       <Navbar />
       <motion.main key={pathname} initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>

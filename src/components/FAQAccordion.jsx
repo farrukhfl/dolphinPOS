@@ -6,8 +6,19 @@ import SectionHeading from './ui/SectionHeading'
 export default function FAQAccordion({ items, eyebrow = 'COMMON QUESTIONS', title, body }) {
   const [open, setOpen] = useState(0)
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+
   return (
     <section className="px-5 py-24 lg:px-8 lg:py-32">
+      <script type="application/ld+json">{JSON.stringify(faqSchema).replace(/</g, '\\u003c')}</script>
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.65fr_1.35fr]">
         <SectionHeading eyebrow={eyebrow} title={title} body={body} />
         <div className="divide-y divide-slate-200 border-y border-slate-200">
