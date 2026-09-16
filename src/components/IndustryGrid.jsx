@@ -8,13 +8,23 @@ export default function IndustryGrid({ eyebrow = 'INDUSTRIES', title = 'Built fo
       <div className="mx-auto max-w-7xl">
         <Reveal><SectionHeading eyebrow={eyebrow} title={title} body={body} align="center" className="mx-auto" /></Reveal>
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {industries.map(({ name, icon: Icon }, i) => (
+          {industries.map(({ name, icon: Icon, photo }, i) => (
             <Reveal key={name} delay={i * 0.05}>
-              <div className="interactive-card group flex h-full flex-col items-center gap-4 rounded-2xl border border-slate-200 bg-white p-6 text-center">
-                <span className="icon-lift flex h-12 w-12 items-center justify-center rounded-xl bg-dolphin-50 text-dolphin-700">
-                  <Icon size={24} />
-                </span>
-                <span className="text-sm font-bold text-ink">{name}</span>
+              <div className="interactive-card group relative h-full overflow-hidden rounded-2xl border border-slate-200 bg-abyss-900 shadow-soft">
+                <img
+                  src={photo}
+                  alt={`Dolphin POS at a ${name.toLowerCase()} checkout counter`}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[3/4] w-full object-cover transition duration-[900ms] ease-out group-hover:scale-[1.06] sm:aspect-square"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-abyss-950 via-abyss-950/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-4">
+                  <span className="icon-lift flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-dolphin-600 text-white shadow-lg">
+                    <Icon size={18} />
+                  </span>
+                  <span className="text-sm font-bold text-white">{name}</span>
+                </div>
               </div>
             </Reveal>
           ))}

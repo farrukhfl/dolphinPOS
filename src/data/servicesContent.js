@@ -15,7 +15,7 @@ export const keepMorePoints = [
   { title: 'No processing fees out of your margin', body: 'Dual pricing automatically covers the cost of accepting cards.', image: '/services/benefits/no-processing-fees.webp' },
   { title: 'Transparent pricing for every job', body: 'Customers see the exact cash and card price before they pay.', image: '/services/benefits/transparent-pricing.webp' },
   { title: 'Get paid the same day', body: 'Take payment on-site or send a digital invoice from the field.', image: '/services/benefits/same-day-payout.webp' },
-  { title: 'Built for service businesses', body: 'Appointments, invoicing, and payments all live in one place.', image: '/services/benefits/built-for-service.webp' },
+  { title: 'Built for service businesses', body: 'Appointments, invoicing, and payments all live in one place.', image: '/services/benefits/built-for-service.png' },
 ]
 
 export const featuresGrid = [

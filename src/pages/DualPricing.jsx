@@ -58,11 +58,22 @@ export default function DualPricing() {
         <div className="mx-auto max-w-6xl">
           <Reveal><SectionHeading eyebrow="REAL-TIME INSIGHTS" title="See your savings as they happen" align="center" className="mx-auto" /></Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {insightsFeatures.map(({ title, icon: Icon }, i) => (
+            {insightsFeatures.map(({ title, icon: Icon, image }, i) => (
               <Reveal key={title} delay={i * 0.07}>
-                <div className="interactive-card flex h-full flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 text-center">
-                  <span className="icon-lift flex h-12 w-12 items-center justify-center rounded-xl bg-dolphin-50 text-dolphin-700"><Icon size={22} /></span>
-                  <span className="text-sm font-bold text-ink">{title}</span>
+                <div className="interactive-card group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src={image}
+                      alt={title}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition duration-[900ms] ease-out group-hover:scale-[1.06]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-3 p-4">
+                    <span className="icon-lift flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-dolphin-50 text-dolphin-700"><Icon size={18} /></span>
+                    <span className="text-sm font-bold text-ink">{title}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

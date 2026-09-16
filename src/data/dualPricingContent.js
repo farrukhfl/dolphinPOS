@@ -44,10 +44,10 @@ export const benefitCards = [
 ]
 
 export const insightsFeatures = [
-  { title: 'Live sales dashboard', icon: BarChart3 },
-  { title: 'Per-transaction fee breakdown', icon: ClipboardList },
-  { title: 'Customer payment trends', icon: Users },
-  { title: 'Savings tracked over time', icon: LineChart },
+  { title: 'Live sales dashboard', icon: BarChart3, image: '/dual-pricing/insights/live-sales-dashboard.png' },
+  { title: 'Per-transaction fee breakdown', icon: ClipboardList, image: '/dual-pricing/insights/per-transaction-fee-breakdown.png' },
+  { title: 'Customer payment trends', icon: Users, image: '/dual-pricing/insights/customer-payment-trends.png' },
+  { title: 'Savings tracked over time', icon: LineChart, image: '/dual-pricing/insights/savings-tracked-over-time.png' },
 ]
 
 export const faqs = [
