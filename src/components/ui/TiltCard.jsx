@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
+import { m, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
 
 const NO_HOVER = '(hover: none), (pointer: coarse)'
 
@@ -56,7 +56,7 @@ export default function TiltCard({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={(event) => {
         const rect = event.currentTarget.getBoundingClientRect()
@@ -69,6 +69,6 @@ export default function TiltCard({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

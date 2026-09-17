@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Quote, Star } from 'lucide-react'
 import Reveal from '../Reveal'
 import AnimatedNumber from '../AnimatedNumber'
@@ -29,7 +29,7 @@ export default function TestimonialFeature() {
     >
       {/* Ambient counter photograph, deliberately far enough back to read as
           texture rather than as this particular merchant's store. */}
-      <motion.img
+      <m.img
         src="/homepage/industries/services.webp"
         alt=""
         aria-hidden="true"
@@ -59,7 +59,7 @@ export default function TestimonialFeature() {
 
             <div className="min-h-[19rem] sm:min-h-[16rem]">
               <AnimatePresence mode="wait">
-                <motion.blockquote
+                <m.blockquote
                   key={active.name}
                   initial={reduceMotion ? false : { opacity: 0, y: 20, filter: 'blur(6px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -83,7 +83,7 @@ export default function TestimonialFeature() {
                       <p className="text-sm text-slate-400">{active.location}</p>
                     </div>
                   </footer>
-                </motion.blockquote>
+                </m.blockquote>
               </AnimatePresence>
             </div>
 

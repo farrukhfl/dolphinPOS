@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, Check } from 'lucide-react'
 import Reveal from '../Reveal'
 import { retailIndustries } from '../../data/posRetailContent'
@@ -33,7 +33,7 @@ export default function RetailIndustries() {
           {retailIndustries.map(({ name, icon: Icon, image, points }, i) => (
             <Reveal key={name} delay={i * 0.08} className={SPANS[i] ?? 'lg:col-span-2'}>
               <article className="group relative h-full overflow-hidden rounded-3xl border border-slate-200 bg-abyss-900 shadow-soft transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_40px_80px_-35px_rgba(8,71,128,0.5)]">
-                <motion.img
+                <m.img
                   src={image}
                   alt={`Dolphin POS at a ${name.toLowerCase()} counter`}
                   loading="lazy"

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import DualPricingTerminal from './DualPricingTerminal'
 
 /**
@@ -22,7 +22,7 @@ export default function LivePricingDemo() {
       <div className="relative">
         <DualPricingTerminal />
 
-        <motion.img
+        <m.img
           src="/retail/sales-overview.png"
           alt="Sales overview showing total sales and processing savings for the month"
           loading="lazy"

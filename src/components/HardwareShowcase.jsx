@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Reveal from './Reveal'
 import SectionHeading from './ui/SectionHeading'
 import SpotlightCard from './ui/SpotlightCard'
@@ -32,7 +32,7 @@ export default function HardwareShowcase({
                     className="absolute bottom-1 h-3 w-2/3 rounded-[50%] bg-dolphin-900/15 blur-md transition duration-500 group-hover:w-3/4 group-hover:bg-dolphin-900/20"
                     aria-hidden="true"
                   />
-                  <motion.img
+                  <m.img
                     src={image}
                     alt={name}
                     loading="lazy"

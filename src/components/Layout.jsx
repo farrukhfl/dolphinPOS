@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { Suspense, useEffect } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollProgress from './ScrollProgress'
@@ -34,11 +34,11 @@ export default function Layout() {
       <Seo />
       <ScrollProgress />
       <Navbar />
-      <motion.main key={pathname} initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+      <m.main key={pathname} initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
         <Suspense fallback={<PageFallback />}>
           <Outlet />
         </Suspense>
-      </motion.main>
+      </m.main>
       <Footer />
       <BookDemoModal />
       <StickyCTA />

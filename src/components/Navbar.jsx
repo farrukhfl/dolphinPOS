@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronDown, LayoutGrid, Menu, Phone, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Button from './ui/Button'
 import { useBookDemo } from '../lib/BookDemoContext'
@@ -23,14 +23,14 @@ function Dropdown({ label, items, id }) {
       </button>
       <AnimatePresence>
         {open && (
-          <motion.div id={id} initial={{ opacity: 0, y: -8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6, scale: 0.98 }} transition={{ duration: 0.18 }} className="absolute left-1/2 top-full w-64 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl" role="menu">
+          <m.div id={id} initial={{ opacity: 0, y: -8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6, scale: 0.98 }} transition={{ duration: 0.18 }} className="absolute left-1/2 top-full w-64 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl" role="menu">
             {items.map(({ label: itemLabel, to, description }) => (
               <Link key={itemLabel} to={to} role="menuitem" className="block rounded-xl px-3.5 py-2.5 transition hover:bg-dolphin-50">
                 <span className="block text-sm font-bold text-slate-900">{itemLabel}</span>
                 {description && <span className="mt-0.5 block text-xs leading-4 text-slate-500">{description}</span>}
               </Link>
             ))}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -85,7 +85,7 @@ export default function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden border-b border-slate-200 bg-white px-5 py-6 lg:hidden max-h-[80vh] overflow-y-auto">
+          <m.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden border-b border-slate-200 bg-white px-5 py-6 lg:hidden max-h-[80vh] overflow-y-auto">
             <div className="mx-auto flex max-w-7xl flex-col gap-1">
               {primaryLinks.map((link) => (
                 <NavLink key={link.to} to={link.to} className={mobileLinkClass}>{link.label}</NavLink>
@@ -114,7 +114,7 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

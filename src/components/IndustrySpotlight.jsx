@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { industries } from '../data/industries'
 
 const AUTO_ADVANCE_MS = 4500
@@ -38,7 +38,7 @@ export default function IndustrySpotlight() {
               >
                 {ind.name}
                 {isActive && !paused && (
-                  <motion.span
+                  <m.span
                     key={active}
                     className="absolute inset-x-0 bottom-0 h-0.5 bg-white/70"
                     initial={{ scaleX: 0 }}
@@ -58,7 +58,7 @@ export default function IndustrySpotlight() {
           onMouseLeave={() => setPaused(false)}
         >
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={item.name}
               initial={{ opacity: 0, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -77,7 +77,7 @@ export default function IndustrySpotlight() {
                   <p className="mt-0.5 max-w-xl text-sm leading-6 text-white/80 sm:text-base">{item.blurb}</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>

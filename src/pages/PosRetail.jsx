@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import FAQAccordion from '../components/FAQAccordion'
 import FinalCTA from '../components/FinalCTA'
@@ -7,7 +7,7 @@ import RetailHero from '../components/retail/RetailHero'
 import RetailIndustries from '../components/retail/RetailIndustries'
 import StepFlow from '../components/StepFlow'
 import FeatureIconGrid from '../components/retail/FeatureIconGrid'
-import ImageSplit from '../components/retail/ImageSplit'
+import ImageSplit from '../components/ImageSplit'
 import { commandCenter, faqs, hardwareFit, pricingSteps, timeline } from '../data/posRetailContent'
 
 function DayTimeline() {
@@ -50,7 +50,7 @@ function DayTimeline() {
         <Reveal delay={0.16}>
           <div className="mt-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
             <div className="h-1 bg-slate-100">
-              <motion.div
+              <m.div
                 className="h-full bg-gradient-to-r from-dolphin-400 to-dolphin-600"
                 animate={{ width: `${((active + 1) / timeline.length) * 100}%` }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -59,7 +59,7 @@ function DayTimeline() {
 
             <div className="min-h-[13rem] p-8 sm:p-10">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={item.time}
                   initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ function DayTimeline() {
                   <p className="tabular text-xs font-bold uppercase tracking-[0.2em] text-dolphin-700">{item.time}</p>
                   <h3 className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">{item.title}</h3>
                   <p className="mt-3 max-w-xl text-lg leading-8 text-slate-600">{item.body}</p>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { PlayCircle, ShieldCheck, Sparkles, Star, TrendingUp, Wifi } from 'lucide-react'
 import Button from '../ui/Button'
 import AnimatedNumber from '../AnimatedNumber'
@@ -71,7 +71,7 @@ export default function Hero({ onWatchVideo }) {
       */}
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:gap-10">
         <div className="order-1 text-center lg:col-start-1 lg:row-start-1 lg:text-left">
-          <motion.div
+          <m.div
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -81,11 +81,11 @@ export default function Hero({ onWatchVideo }) {
               {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={12} fill="currentColor" strokeWidth={0} />)}
             </span>
             Rated 4.9/5 by 1,000+ merchants
-          </motion.div>
+          </m.div>
 
           <h1 className="mx-auto mt-7 max-w-2xl text-balance text-[2.6rem] font-extrabold leading-[1.04] text-ink sm:text-6xl lg:mx-0 lg:text-[3.15rem] xl:text-[4.05rem]">
             {HEADLINE_LEAD.map((word, i) => (
-              <motion.span
+              <m.span
                 key={word}
                 className="mr-[0.22em] inline-block"
                 initial={reduceMotion ? false : { opacity: 0, y: 26, filter: 'blur(8px)' }}
@@ -93,16 +93,16 @@ export default function Hero({ onWatchVideo }) {
                 transition={{ duration: 0.6, delay: i * 0.03, ease: [0.22, 1, 0.36, 1] }}
               >
                 {word}
-              </motion.span>
+              </m.span>
             ))}
-            <motion.span
+            <m.span
               className="text-gradient inline-block"
               initial={reduceMotion ? false : { opacity: 0, y: 26, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
               Keep every dollar you earn.
-            </motion.span>
+            </m.span>
           </h1>
 
           {/*
@@ -112,7 +112,7 @@ export default function Hero({ onWatchVideo }) {
             top of however long the JS bundle takes to become interactive.
             Same fade, far less of it gating the metric that actually matters.
           */}
-          <motion.p
+          <m.p
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.18 }}
@@ -120,9 +120,9 @@ export default function Hero({ onWatchVideo }) {
           >
             Dolphin POS shows the cash price beside the card price on every ticket, so card
             processing fees stop coming out of your margin.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.24 }}
@@ -140,7 +140,7 @@ export default function Hero({ onWatchVideo }) {
               </span>
               {overviewVideoLabel}
             </button>
-          </motion.div>
+          </m.div>
         </div>
 
         {/*
@@ -148,7 +148,7 @@ export default function Hero({ onWatchVideo }) {
           black ground, so it sits on a dark plate where it reads as a lit
           object rather than a cut-out, and the plate tilts toward the cursor.
         */}
-        <motion.div
+        <m.div
           style={{ y: visualY }}
           className="relative order-2 mx-auto w-full max-w-md lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:max-w-lg lg:self-center"
         >
@@ -161,7 +161,7 @@ export default function Hero({ onWatchVideo }) {
               <div className="pointer-events-none absolute -left-20 top-1/4 h-72 w-72 rounded-full bg-dolphin-500/30 blur-3xl animate-float-slow" aria-hidden="true" />
               <div className="pointer-events-none absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-reef-400/20 blur-3xl animate-float-slower" aria-hidden="true" />
 
-              <motion.img
+              <m.img
                 src="/homepage/hero-banner.webp"
                 alt="A Dolphin POS handheld terminal at checkout showing the cash price of $363.83 beside the card price of $376.56"
                 width="1024"
@@ -178,7 +178,7 @@ export default function Hero({ onWatchVideo }) {
 
             {/* Signal chips sit outside the plate so they can overhang its edge */}
             {CHIPS.map(({ icon: Icon, title, note, tone, noteTone, pos, delay, drift }) => (
-              <motion.div
+              <m.div
                 key={title}
                 initial={reduceMotion ? false : { opacity: 0, scale: 0.9, y: 12 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -196,13 +196,13 @@ export default function Hero({ onWatchVideo }) {
                   <p className="text-[11px] font-bold leading-tight text-ink">{title}</p>
                   <p className={`text-[10px] leading-tight ${noteTone}`}>{note}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </TiltCard>
-        </motion.div>
+        </m.div>
 
         <div className="order-3 text-center lg:col-start-1 lg:row-start-2 lg:text-left">
-          <motion.ul
+          <m.ul
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
@@ -213,10 +213,10 @@ export default function Hero({ onWatchVideo }) {
                 <Sparkles size={13} className="text-dolphin-500" /> {point}
               </li>
             ))}
-          </motion.ul>
+          </m.ul>
 
           {/* Above the fold, so these count up on load rather than on scroll */}
-          <motion.div
+          <m.div
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.9 }}
@@ -230,7 +230,7 @@ export default function Hero({ onWatchVideo }) {
                 <p className="mt-1 text-xs font-semibold leading-4 text-slate-500">{stat.label}</p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { Check, ChevronRight, X } from 'lucide-react'
 import Reveal from '../Reveal'
 import { comparisonRows } from '../../data/homeContent'
@@ -77,7 +77,7 @@ export default function ComparisonTable() {
               </thead>
               <tbody>
                 {comparisonRows.map((row, i) => (
-                  <motion.tr
+                  <m.tr
                     key={row.feature}
                     initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export default function ComparisonTable() {
                     <th scope="row" className="px-6 py-5 text-left font-semibold text-ink">{row.feature}</th>
                     <td className={`${HIGHLIGHT} px-6 py-5`}><Cell value={row.dolphin} highlight /></td>
                     <td className="px-6 py-5"><Cell value={row.traditional} /></td>
-                  </motion.tr>
+                  </m.tr>
                 ))}
               </tbody>
             </table>

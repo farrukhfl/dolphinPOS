@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import SpotlightCard from '../components/ui/SpotlightCard'
 import HardwareShowcase from '../components/HardwareShowcase'
@@ -28,7 +28,7 @@ function FeatureGrid() {
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {featuresGrid.map(({ title, icon: Icon }, i) => (
-            <motion.div
+            <m.div
               key={title}
               initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -41,7 +41,7 @@ function FeatureGrid() {
                 </span>
                 <span className="font-bold leading-6 text-ink">{title}</span>
               </SpotlightCard>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

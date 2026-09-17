@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Reveal from '../Reveal'
 import SpotlightCard from '../ui/SpotlightCard'
 import { keepMorePoints } from '../../data/servicesContent'
@@ -41,7 +41,7 @@ export default function ServiceBenefits() {
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur transition duration-500 hover:border-dolphin-400/40"
               >
                 <div className="overflow-hidden">
-                  <motion.img
+                  <m.img
                     src={image}
                     alt={title}
                     loading="lazy"

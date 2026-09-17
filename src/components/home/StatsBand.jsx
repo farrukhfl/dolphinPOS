@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Reveal from '../Reveal'
 import AnimatedNumber from '../AnimatedNumber'
 import { bigStats } from '../../data/homeContent'
@@ -20,7 +20,7 @@ export default function StatsBand() {
 
   return (
     <section ref={ref} className="relative isolate overflow-hidden px-5 py-28 lg:px-8 lg:py-40">
-      <motion.div
+      <m.div
         className="absolute inset-0 -z-20 h-[124%] -translate-y-[12%]"
         style={reduceMotion ? undefined : { y, scale }}
         aria-hidden="true"
@@ -32,7 +32,7 @@ export default function StatsBand() {
           decoding="async"
           className="h-full w-full object-cover"
         />
-      </motion.div>
+      </m.div>
 
       {/* Legibility stack, kept light enough that the counter still reads:
           a brand wash, a soft vertical darkening, then a vignette that only

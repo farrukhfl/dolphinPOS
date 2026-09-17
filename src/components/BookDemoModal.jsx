@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { CalendarDays, Check, X } from 'lucide-react'
 import { useBookDemo } from '../lib/BookDemoContext'
 import { ApiError, submitContact } from '../lib/api'
@@ -115,9 +115,9 @@ export default function BookDemoModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <motion.div className="absolute inset-0 bg-dolphin-900/70 backdrop-blur-sm" onClick={handleClose} aria-hidden="true" />
-          <motion.div
+        <m.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <m.div className="absolute inset-0 bg-dolphin-900/70 backdrop-blur-sm" onClick={handleClose} aria-hidden="true" />
+          <m.div
             ref={dialogRef}
             tabIndex={-1}
             role="dialog"
@@ -209,8 +209,8 @@ export default function BookDemoModal() {
                 </form>
               </>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

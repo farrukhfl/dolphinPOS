@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { m, useInView, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, CloudOff, Layers, LineChart, Lock, Plug, Store } from 'lucide-react'
 import Reveal from '../Reveal'
 import SpotlightCard from '../ui/SpotlightCard'
@@ -26,7 +26,7 @@ function FeeBars() {
             <span className={`tabular ${bar.text}`}>{bar.value}</span>
           </div>
           <div className="h-2.5 overflow-hidden rounded-full bg-white/[0.07]">
-            <motion.div
+            <m.div
               className={`h-full rounded-full ${bar.tone}`}
               initial={reduceMotion ? { width: bar.width } : { width: 0 }}
               animate={inView ? { width: bar.width } : {}}
@@ -55,7 +55,7 @@ function OfflineStrip() {
         {Array.from({ length: 26 }).map((_, i) => {
           const dropped = i === 11 || i === 12
           return (
-            <motion.span
+            <m.span
               key={i}
               className={`w-full rounded-sm ${dropped ? 'bg-amber-400/80' : 'bg-dolphin-400/60'}`}
               style={{ height: `${dropped ? 16 : 14 + ((i * 37) % 30)}px` }}
@@ -92,7 +92,7 @@ function PhotoTile({ image, alt, icon: Icon, title, body, className = '', delay 
   return (
     <Reveal delay={delay} className={className}>
       <article className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-abyss-900 transition duration-500 hover:border-dolphin-400/40">
-        <motion.img
+        <m.img
           src={image}
           alt={alt}
           loading="lazy"

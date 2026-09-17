@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { m, useInView, useReducedMotion } from 'framer-motion'
 import Reveal from './Reveal'
 
 /**
@@ -48,7 +48,7 @@ export default function StepFlow({
             className={`absolute left-[16%] right-[16%] top-9 hidden h-0.5 overflow-hidden rounded-full md:block ${tone === 'tint' ? 'bg-dolphin-100' : 'bg-slate-200'}`}
             aria-hidden="true"
           >
-            <motion.div
+            <m.div
               className="h-full w-full rounded-full bg-gradient-to-r from-dolphin-400 to-dolphin-600"
               style={{ transformOrigin: 'left' }}
               initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
@@ -59,21 +59,21 @@ export default function StepFlow({
 
           <div className="grid gap-12 md:grid-cols-3 md:gap-8">
             {steps.map(({ title: stepTitle, body: stepBody, image, alt }, i) => (
-              <motion.div
+              <m.div
                 key={stepTitle}
                 className="relative flex flex-col items-center text-center"
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.35 + i * 0.18, ease: [0.22, 1, 0.36, 1] }}
               >
-                <motion.span
+                <m.span
                   className={`relative z-10 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border-4 bg-dolphin-600 text-xl font-extrabold text-white shadow-lg shadow-dolphin-900/25 ${tone === 'tint' ? 'border-slate-50' : 'border-white'}`}
                   initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
                   animate={inView ? { scale: 1, opacity: 1 } : {}}
                   transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.3 + i * 0.18 }}
                 >
                   {i + 1}
-                </motion.span>
+                </m.span>
 
                 <h3 className="mt-5 text-lg font-bold text-ink">{stepTitle}</h3>
                 {/* Reserved height keeps the three panels on one line even when
@@ -101,7 +101,7 @@ export default function StepFlow({
                     />
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

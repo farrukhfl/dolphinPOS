@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { CalendarCheck, Sparkles, Wallet } from 'lucide-react'
 import Button from '../ui/Button'
 import TiltCard from '../ui/TiltCard'
@@ -32,18 +32,18 @@ export default function ServicesHero() {
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-12">
         <div className="text-center lg:text-left">
-          <motion.p
+          <m.p
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-dolphin-700"
           >
             POS for service businesses
-          </motion.p>
+          </m.p>
 
           <h1 className="mx-auto max-w-2xl text-balance text-[2.5rem] font-extrabold leading-[1.05] text-ink sm:text-5xl lg:mx-0 lg:text-[3.6rem]">
             {WORDS.map((word, i) => (
-              <motion.span
+              <m.span
                 key={word}
                 className="mr-[0.22em] inline-block"
                 initial={reduceMotion ? false : { opacity: 0, y: 24, filter: 'blur(8px)' }}
@@ -51,19 +51,19 @@ export default function ServicesHero() {
                 transition={{ duration: 0.6, delay: 0.05 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
                 {word}
-              </motion.span>
+              </m.span>
             ))}
-            <motion.span
+            <m.span
               className="text-gradient inline-block"
               initial={reduceMotion ? false : { opacity: 0, y: 24, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
               Get paid everywhere.
-            </motion.span>
+            </m.span>
           </h1>
 
-          <motion.p
+          <m.p
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
@@ -71,9 +71,9 @@ export default function ServicesHero() {
           >
             Book the job, do the work, take payment on site. Dual pricing keeps card processing
             costs off the invoice and out of your margin.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.55 }}
@@ -81,9 +81,9 @@ export default function ServicesHero() {
           >
             <Button onClick={openModal} className="shine w-full px-7 py-3.5 text-base sm:w-auto">Book a Demo</Button>
             <Button to="/pricing" variant="secondary" className="w-full px-7 py-3.5 text-base sm:w-auto">See POS Plans</Button>
-          </motion.div>
+          </m.div>
 
-          <motion.ul
+          <m.ul
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -94,19 +94,19 @@ export default function ServicesHero() {
                 <Sparkles size={13} className="text-dolphin-500" /> {point}
               </li>
             ))}
-          </motion.ul>
+          </m.ul>
         </div>
 
         {/* The banner is a mosaic of real counters, so it needs no framing
             beyond a soft plate to sit the rounded tiles on. */}
-        <motion.div style={{ y: visualY }} className="relative mx-auto w-full max-w-2xl lg:mx-0">
+        <m.div style={{ y: visualY }} className="relative mx-auto w-full max-w-2xl lg:mx-0">
           <TiltCard max={5} scale={1.015} className="relative">
             <div
               className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-abyss-800 via-abyss-900 to-black p-1.5 shadow-[0_50px_110px_-40px_rgba(4,11,19,0.65)] sm:p-2"
               style={{ transformStyle: 'preserve-3d' }}
             >
               <div className="pointer-events-none absolute -left-16 top-1/4 h-64 w-64 rounded-full bg-dolphin-500/25 blur-3xl animate-float-slow" aria-hidden="true" />
-              <motion.img
+              <m.img
                 src={servicesHero.image}
                 alt={servicesHero.alt}
                 width="1536"
@@ -122,7 +122,7 @@ export default function ServicesHero() {
             </div>
 
             {CHIPS.map(({ icon: Icon, title, note, tone, pos, drift }, i) => (
-              <motion.div
+              <m.div
                 key={title}
                 initial={reduceMotion ? false : { opacity: 0, scale: 0.9, y: 12 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -140,10 +140,10 @@ export default function ServicesHero() {
                   <p className="text-[11px] font-bold leading-tight text-ink">{title}</p>
                   <p className="text-[10px] leading-tight text-slate-500">{note}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </TiltCard>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

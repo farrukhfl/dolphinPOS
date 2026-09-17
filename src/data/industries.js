@@ -6,7 +6,7 @@ export const industries = [
     icon: Store,
     blurb: 'Weighted produce, EBT/SNAP, and high-speed checkout in one line.',
     image: '/homepage/industries/grocery.webp',
-    photo: '/dual-pricing/industries/grocery-stores.png',
+    photo: '/dual-pricing/industries/grocery-stores.webp',
     features: [
       'Scale integration for weighted produce',
       'EBT/SNAP split tender at the register',
@@ -19,7 +19,7 @@ export const industries = [
     icon: Coffee,
     blurb: 'Fast checkout and mixed inventory, without the mixed-up systems.',
     image: '/homepage/industries/convenience-store.webp',
-    photo: '/dual-pricing/industries/convenience-stores.png',
+    photo: '/dual-pricing/industries/convenience-stores.webp',
     features: [
       'Fuel and in-store sales on one ticket',
       'Age-restricted item prompts',
@@ -32,7 +32,7 @@ export const industries = [
     icon: Utensils,
     blurb: 'Fast table turns meet built-in dual pricing on every check.',
     image: '/homepage/industries/restaurant.webp',
-    photo: '/dual-pricing/industries/restaurants.png',
+    photo: '/dual-pricing/industries/restaurants.webp',
     features: [
       'Table, tab, and quick-service modes',
       'Kitchen display and ticket routing',
@@ -45,7 +45,7 @@ export const industries = [
     icon: Beer,
     blurb: 'Age verification and compliance-ready checkout, automatically.',
     image: '/homepage/industries/liquor-store.webp',
-    photo: '/dual-pricing/industries/liquor-stores.png',
+    photo: '/dual-pricing/industries/liquor-stores.webp',
     features: [
       'ID scan and age verification at scan',
       'Case, bottle, and mixed-six pricing',
@@ -58,7 +58,7 @@ export const industries = [
     icon: Cigarette,
     blurb: 'Tobacco compliance and massive SKU counts, handled with ease.',
     image: '/homepage/industries/vape.webp',
-    photo: '/dual-pricing/industries/vape-shops.png',
+    photo: '/dual-pricing/industries/vape-shops.webp',
     features: [
       'High-SKU catalogs with fast lookup',
       'Tobacco and nicotine tax handling',
@@ -71,7 +71,7 @@ export const industries = [
     icon: Pill,
     blurb: 'Prescription-adjacent retail with the reporting to match.',
     image: '/homepage/industries/pharmacy.webp',
-    photo: '/dual-pricing/industries/drug-stores-pharmacies.png',
+    photo: '/dual-pricing/industries/drug-stores-pharmacies.webp',
     features: [
       'Front-of-store and OTC categories',
       'FSA/HSA eligible item flagging',
@@ -84,7 +84,7 @@ export const industries = [
     icon: Briefcase,
     blurb: 'Appointments, invoicing, and payments in one system.',
     image: '/homepage/industries/services.webp',
-    photo: '/dual-pricing/industries/professional-services.png',
+    photo: '/dual-pricing/industries/professional-services.webp',
     features: [
       'Appointment booking and reminders',
       'Deposits, invoices, and balances',

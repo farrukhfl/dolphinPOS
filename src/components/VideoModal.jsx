@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Clock, PlayCircle, VideoOff, X } from 'lucide-react'
 
 /**
@@ -60,9 +60,9 @@ export default function VideoModal({ video, onClose }) {
   return (
     <AnimatePresence>
       {video && (
-        <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <motion.div className="absolute inset-0 bg-dolphin-900/80 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
-          <motion.div
+        <m.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <m.div className="absolute inset-0 bg-dolphin-900/80 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+          <m.div
             ref={dialogRef}
             tabIndex={-1}
             role="dialog"
@@ -123,8 +123,8 @@ export default function VideoModal({ video, onClose }) {
                 </p>
               )}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Reveal from '../Reveal'
 import Button from '../ui/Button'
 import Marquee from '../ui/Marquee'
@@ -34,7 +34,7 @@ export default function SwitchSection() {
             <Reveal delay={0.1}>
               <ul className="mt-9 space-y-1">
                 {switchPoints.map(({ title, body }, i) => (
-                  <motion.li
+                  <m.li
                     key={title}
                     initial={reduceMotion ? false : { opacity: 0, x: 16 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -49,7 +49,7 @@ export default function SwitchSection() {
                       <p className="font-bold text-ink">{title}</p>
                       <p className="mt-0.5 text-sm leading-6 text-slate-600">{body}</p>
                     </div>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
             </Reveal>

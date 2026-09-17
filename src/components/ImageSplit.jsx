@@ -1,10 +1,10 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Check } from 'lucide-react'
-import Reveal from '../Reveal'
-import Button from '../ui/Button'
-import TiltCard from '../ui/TiltCard'
-import { useBookDemo } from '../../lib/BookDemoContext'
+import Reveal from './Reveal'
+import Button from './ui/Button'
+import TiltCard from './ui/TiltCard'
+import { useBookDemo } from '../lib/BookDemoContext'
 
 /**
  * Product render on one side, checklist on the other. `reverse` flips the
@@ -34,7 +34,7 @@ export default function ImageSplit({
       className={`relative overflow-hidden px-5 py-24 lg:px-8 lg:py-32 ${tone === 'tint' ? 'bg-slate-50' : ''}`}
     >
       <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-16">
-        <motion.div
+        <m.div
           style={{ y }}
           className={`relative ${reverse ? 'order-2 lg:order-2' : 'order-2 lg:order-1'}`}
         >
@@ -43,7 +43,7 @@ export default function ImageSplit({
               plate drew a visible box inside a box. A drop-shadow filter
               follows the image's real alpha edge instead. */}
           <TiltCard max={5} scale={1.02}>
-            <motion.img
+            <m.img
               src={image}
               alt={alt}
               loading="lazy"
@@ -55,7 +55,7 @@ export default function ImageSplit({
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             />
           </TiltCard>
-        </motion.div>
+        </m.div>
 
         <div className={reverse ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}>
           <Reveal direction={reverse ? 'left' : 'right'}>
@@ -71,7 +71,7 @@ export default function ImageSplit({
           <Reveal delay={0.12}>
             <ul className="mt-8 space-y-1">
               {points.map((point, i) => (
-                <motion.li
+                <m.li
                   key={point}
                   initial={reduceMotion ? false : { opacity: 0, x: reverse ? -16 : 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -83,7 +83,7 @@ export default function ImageSplit({
                     <Check size={13} strokeWidth={3} />
                   </span>
                   <span className="leading-7 text-slate-600">{point}</span>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
           </Reveal>

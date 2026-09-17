@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Phone } from 'lucide-react'
 import { useBookDemo } from '../lib/BookDemoContext'
 import { PHONE_TEL } from '../lib/nav'
@@ -28,7 +28,7 @@ export default function StickyCTA() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ y: 90, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 90, opacity: 0 }}
@@ -52,7 +52,7 @@ export default function StickyCTA() {
               Book a Free Demo
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

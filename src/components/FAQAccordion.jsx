@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import SectionHeading from './ui/SectionHeading'
 
 export default function FAQAccordion({ items, eyebrow = 'COMMON QUESTIONS', title, body }) {
@@ -34,9 +34,9 @@ export default function FAQAccordion({ items, eyebrow = 'COMMON QUESTIONS', titl
                 </h3>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div id={`faq-panel-${i}`} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }} className="overflow-hidden">
+                    <m.div id={`faq-panel-${i}`} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }} className="overflow-hidden">
                       <p className="pb-7 pr-8 leading-7 text-slate-600">{item.answer}</p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

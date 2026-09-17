@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 
 const offsets = {
   up: { x: 0, y: 24 },
@@ -10,5 +10,5 @@ const offsets = {
 
 export default function Reveal({ children, className = '', direction = 'up', delay = 0, amount = 0.15 }) {
   const reduceMotion = useReducedMotion()
-  return <motion.div className={className} initial={reduceMotion ? false : { opacity: 0, ...offsets[direction] }} whileInView={reduceMotion ? {} : { opacity: 1, x: 0, y: 0 }} viewport={{ once: true, amount }} transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>
+  return <m.div className={className} initial={reduceMotion ? false : { opacity: 0, ...offsets[direction] }} whileInView={reduceMotion ? {} : { opacity: 1, x: 0, y: 0 }} viewport={{ once: true, amount }} transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</m.div>
 }

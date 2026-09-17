@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { m, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
 /**
  * Photo that wipes into view behind a clip-path curtain, then drifts on a slow
@@ -40,14 +40,14 @@ export default function RevealImage({
       {/* Only overscan the image when parallax needs the slack. Without
           parallax it fills the frame exactly, so a photo whose subject runs
           to the edges is never trimmed. */}
-      <motion.div
+      <m.div
         className={parallax ? 'absolute inset-x-0 -inset-y-[8%]' : 'absolute inset-0'}
         style={reduceMotion || !parallax ? undefined : { y }}
         initial={false}
         animate={{ clipPath: open ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)' }}
         transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
       >
-        <motion.img
+        <m.img
           src={src}
           alt={alt}
           loading={loading}
@@ -58,7 +58,7 @@ export default function RevealImage({
           animate={{ scale: open || !kenBurns ? 1 : 1.08 }}
           transition={{ duration: 2.4, delay, ease: [0.22, 1, 0.36, 1] }}
         />
-      </motion.div>
+      </m.div>
       {overlay}
     </div>
   )

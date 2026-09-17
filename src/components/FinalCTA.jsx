@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { Phone, PlayCircle } from 'lucide-react'
 import Button from './ui/Button'
 import { useBookDemo } from '../lib/BookDemoContext'
@@ -17,7 +17,7 @@ export default function FinalCTA({
     <section className="px-5 py-24 lg:px-8 lg:py-32">
       <div className="blue-glow relative mx-auto max-w-6xl overflow-hidden rounded-[36px] bg-gradient-to-br from-dolphin-700 via-dolphin-800 to-dolphin-900 px-6 py-20 text-center sm:px-16 lg:py-24">
         <div className="grid-lines-dark pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
-        <motion.div
+        <m.div
           className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/15 blur-3xl"
           animate={reduceMotion ? {} : { scale: [1, 1.2, 1], opacity: [0.6, 0.9, 0.6] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}

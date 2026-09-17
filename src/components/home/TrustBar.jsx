@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import Marquee from '../ui/Marquee'
 import Reveal from '../Reveal'
 import { extraBusinessTypes } from '../../data/homeContent'
@@ -37,7 +37,7 @@ export default function TrustBar() {
         </p>
       </Reveal>
 
-      <motion.div
+      <m.div
         initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -46,7 +46,7 @@ export default function TrustBar() {
         <Marquee speed="slow" ariaLabel="Industries we serve">
           {industries.map((item) => <PhotoCard key={item.name} item={item} />)}
         </Marquee>
-      </motion.div>
+      </m.div>
 
       <Marquee className="mt-4" speed="reverse" ariaLabel="More business types we serve">
         {extraBusinessTypes.map((label) => (

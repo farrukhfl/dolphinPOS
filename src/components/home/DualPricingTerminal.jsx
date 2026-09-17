@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { Banknote, CheckCircle2, CreditCard } from 'lucide-react'
 
 const LINES = [
@@ -40,7 +40,7 @@ export default function DualPricingTerminal() {
 
   return (
     <div className="relative mx-auto w-full max-w-md lg:mx-0">
-      <motion.div
+      <m.div
         initial={reduceMotion ? false : { opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
@@ -58,7 +58,7 @@ export default function DualPricingTerminal() {
 
         <div className="space-y-3 px-6 pt-6">
           {LINES.map((line, i) => (
-            <motion.div
+            <m.div
               key={line.name}
               initial={reduceMotion ? false : { opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
@@ -70,7 +70,7 @@ export default function DualPricingTerminal() {
                 {line.name}
               </span>
               <span className="tabular font-semibold text-ink">${money(line.price)}</span>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -93,7 +93,7 @@ export default function DualPricingTerminal() {
                 className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors ${mode === id ? 'text-white' : 'text-slate-600 hover:text-slate-700'}`}
               >
                 {mode === id && (
-                  <motion.span
+                  <m.span
                     layoutId="pay-mode-pill"
                     className="absolute inset-0 rounded-xl bg-dolphin-700 shadow-lg shadow-dolphin-600/30"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
@@ -111,7 +111,7 @@ export default function DualPricingTerminal() {
           <div className="flex items-end justify-between">
             <span className="pb-1.5 text-sm font-bold text-ink">Total due</span>
             <AnimatePresence mode="popLayout">
-              <motion.span
+              <m.span
                 key={mode}
                 initial={reduceMotion ? false : { opacity: 0, y: 14, filter: 'blur(6px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -120,13 +120,13 @@ export default function DualPricingTerminal() {
                 className="tabular text-4xl font-extrabold text-ink"
               >
                 ${money(active.total)}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
           </div>
 
           {/* Keyed but never unmounted: an AnimatePresence exit here would leave
               a visible empty gap on every cycle of the auto-advance. */}
-          <motion.div
+          <m.div
             key={mode}
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export default function DualPricingTerminal() {
             {mode === 'cash'
               ? <span>Cash discount applied automatically. You keep the full ${money(SUBTOTAL)}.</span>
               : <span>The ${money(feeAbsorbed)} processing fee is covered at checkout. Your margin stays untouched.</span>}
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="border-t border-slate-100 bg-slate-50/70 px-6 py-4">
@@ -146,7 +146,7 @@ export default function DualPricingTerminal() {
             <span className="tabular text-lg font-extrabold text-emerald-700">${money(SUBTOTAL)}</span>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

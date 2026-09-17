@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, m, useInView, useReducedMotion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import Reveal from '../Reveal'
 import Button from '../ui/Button'
@@ -13,18 +13,23 @@ export default function IndustryTabs() {
   const [paused, setPaused] = useState(false)
   const reduceMotion = useReducedMotion()
   const { openModal } = useBookDemo()
+  const sectionRef = useRef(null)
+  // Section sits well below the fold; skip the interval (and the image
+  // fetch it drives via `active`) until it has actually scrolled into view.
+  const inView = useInView(sectionRef, { margin: '200px' })
 
   useEffect(() => {
-    if (paused || reduceMotion) return undefined
+    if (paused || reduceMotion || !inView) return undefined
     const id = setInterval(() => setActive((i) => (i + 1) % industries.length), AUTO_ADVANCE_MS)
     return () => clearInterval(id)
-  }, [paused, reduceMotion])
+  }, [paused, reduceMotion, inView])
 
   const item = industries[active]
   const Icon = item.icon
 
   return (
     <section
+      ref={sectionRef}
       className="overflow-hidden bg-slate-50 px-5 py-24 lg:px-8 lg:py-32"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -58,7 +63,7 @@ export default function IndustryTabs() {
                     className={`group relative flex w-full items-center gap-3.5 overflow-hidden rounded-2xl px-4 py-3.5 text-left transition duration-300 ${isActive ? 'bg-white shadow-soft' : 'hover:bg-white/60'}`}
                   >
                     {isActive && (
-                      <motion.span
+                      <m.span
                         layoutId="industry-rail"
                         className="absolute inset-y-2 left-0 w-1 rounded-full bg-dolphin-600"
                         transition={{ type: 'spring', stiffness: 400, damping: 34 }}
@@ -70,7 +75,7 @@ export default function IndustryTabs() {
                     <span className={`text-sm font-bold transition ${isActive ? 'text-ink' : 'text-slate-500'}`}>{ind.name}</span>
 
                     {isActive && !paused && !reduceMotion && (
-                      <motion.span
+                      <m.span
                         key={active}
                         className="absolute inset-x-0 bottom-0 h-0.5 bg-dolphin-200"
                         initial={{ scaleX: 0 }}
@@ -109,7 +114,7 @@ export default function IndustryTabs() {
                 {/* Crossfade, not mode="wait" — the images are stacked absolutely,
                     so swapping one out first would flash the empty panel. */}
                 <AnimatePresence initial={false}>
-                  <motion.img
+                  <m.img
                     key={item.image}
                     src={item.image}
                     alt={`Dolphin POS at a ${item.name.toLowerCase()} checkout counter`}
@@ -135,7 +140,7 @@ export default function IndustryTabs() {
                   </span>
                   <div>
                     <AnimatePresence mode="wait">
-                      <motion.div
+                      <m.div
                         key={item.name}
                         initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -144,7 +149,7 @@ export default function IndustryTabs() {
                       >
                         <h3 className="text-xl font-bold text-white sm:text-2xl">{item.name}</h3>
                         <p className="mt-1 max-w-lg text-sm leading-6 text-white/80">{item.blurb}</p>
-                      </motion.div>
+                      </m.div>
                     </AnimatePresence>
                   </div>
                 </div>
@@ -153,7 +158,7 @@ export default function IndustryTabs() {
               <div className="p-6 sm:p-8">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Turned on for you</p>
                 <AnimatePresence mode="wait">
-                  <motion.ul
+                  <m.ul
                     key={item.name}
                     initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -162,7 +167,7 @@ export default function IndustryTabs() {
                     className="mt-4 grid gap-3 sm:grid-cols-2"
                   >
                     {item.features.map((feature, i) => (
-                      <motion.li
+                      <m.li
                         key={feature}
                         initial={reduceMotion ? false : { opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -173,9 +178,9 @@ export default function IndustryTabs() {
                           <Check size={12} strokeWidth={3} />
                         </span>
                         {feature}
-                      </motion.li>
+                      </m.li>
                     ))}
-                  </motion.ul>
+                  </m.ul>
                 </AnimatePresence>
 
                 <div className="mt-7 flex flex-wrap items-center gap-4 border-t border-slate-100 pt-6">

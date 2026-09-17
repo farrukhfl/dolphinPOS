@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ShieldCheck, TrendingUp } from 'lucide-react'
 
 export default function HeroShowcase() {
@@ -7,7 +7,7 @@ export default function HeroShowcase() {
       <div className="absolute -left-10 -top-10 h-56 w-56 rounded-full bg-dolphin-300/40 blur-3xl animate-float-slow" aria-hidden="true" />
       <div className="absolute -bottom-10 -right-6 h-64 w-64 rounded-full bg-dolphin-500/30 blur-3xl animate-float-slower" aria-hidden="true" />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
@@ -18,9 +18,9 @@ export default function HeroShowcase() {
           alt="Dolphin POS terminal automatically splitting cash and card pricing at checkout"
           className="aspect-[2/3] w-full object-cover"
         />
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
@@ -31,9 +31,9 @@ export default function HeroShowcase() {
           <p className="text-xs font-bold text-ink">PCI Compliant</p>
           <p className="text-[11px] text-slate-500">Bank-level security</p>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
@@ -45,7 +45,7 @@ export default function HeroShowcase() {
           <p className="text-xs font-bold text-ink">Today's Sales</p>
           <p className="text-[11px] font-semibold text-emerald-600">+12.4% vs. last week</p>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

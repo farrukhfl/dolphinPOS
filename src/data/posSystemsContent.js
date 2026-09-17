@@ -1,10 +1,58 @@
 import { BarChart3, Building2, LineChart, MapPinned, ScanSearch, ShoppingBag, Sparkles, Store, Users, UtensilsCrossed } from 'lucide-react'
 
+export const posSystemsHero = {
+  image: '/pos-systems/hero.webp',
+  alt: 'A Dolphin POS terminal, printer, cash drawer and card reader surrounded by labels for sales, inventory, employees, payments, analytics and multi-location control',
+}
+
 export const businessTypes = [
-  { title: 'Retail', body: 'Grocery, convenience, liquor, smoke shops, and specialty retail — checkout built for how you actually stock and sell.', icon: Store, to: '/pos-retail', disabled: false },
-  { title: 'Services', body: 'Appointments, invoicing, and mobile payments for service businesses that get paid on the go.', icon: Sparkles, to: '/services', disabled: false },
-  { title: 'Restaurant', body: 'Full-service and quick-service restaurant tools, built for the way your kitchen runs.', icon: UtensilsCrossed, to: null, disabled: true },
+  {
+    title: 'Retail',
+    body: 'Grocery, convenience, liquor, smoke shops, and specialty retail — checkout built for how you actually stock and sell.',
+    icon: Store,
+    to: '/pos-retail',
+    disabled: false,
+    image: '/pos-systems/paths/retail.webp',
+    alt: 'Dolphin POS running at convenience, pharmacy, grocery, vape and liquor counters',
+  },
+  {
+    title: 'Services',
+    body: 'Appointments, invoicing, and mobile payments for service businesses that get paid on the go.',
+    icon: Sparkles,
+    to: '/services',
+    disabled: false,
+    image: '/pos-systems/paths/services.webp',
+    alt: 'A salon owner holding a Dolphin POS receipt beside a card terminal and an appointments screen',
+  },
+  {
+    title: 'Restaurant',
+    body: 'Full-service and quick-service restaurant tools, built for the way your kitchen runs.',
+    icon: UtensilsCrossed,
+    to: null,
+    disabled: true,
+    image: '/pos-systems/paths/restaurant.webp',
+    alt: 'A Dolphin POS terminal on a restaurant counter',
+  },
 ]
+
+export const reportingPanel = {
+  title: 'Reporting that keeps you ahead',
+  body: 'Live sales, margin and stock on the laptop in the back office or the phone in your pocket.',
+  image: '/pos-systems/reporting.webp',
+  alt: 'The Dolphin POS dashboard on a laptop and a phone, showing sales totals and a store overview chart',
+}
+
+export const dualPricingPanel = {
+  title: 'Dual pricing, handled',
+  body: 'Both prices are calculated and shown at checkout, with no manual entry from your staff.',
+  image: '/pos-systems/dual-pricing-handled.webp',
+  alt: 'A Dolphin POS terminal showing the cash price beside the card price at checkout',
+}
+
+export const builtInSavings = {
+  image: '/pos-systems/built-in-savings.webp',
+  alt: 'A full Dolphin POS counter setup with live tiles for sales today, inventory, customers and accepted payments',
+}
 
 export const reportingFeatures = [
   { title: 'Custom Dashboards', icon: BarChart3 },
@@ -27,6 +75,8 @@ export const dualPricingFeatures = [
 export const businessTabs = [
   {
     key: 'new',
+    image: '/pos-systems/tabs/new-business.webp',
+    alt: 'A first Dolphin POS counter set up and ready to take its first sale',
     label: 'New Business',
     icon: ShoppingBag,
     body: 'Just getting started? Launch with hardware, software, and dual pricing pre-configured out of the box.',
@@ -34,6 +84,8 @@ export const businessTabs = [
   },
   {
     key: 'multi',
+    image: '/pos-systems/tabs/multi-location.webp',
+    alt: 'Several store locations managed from one Dolphin POS dashboard',
     label: 'Multiple Locations',
     icon: MapPinned,
     body: 'Manage every store from one login, with pricing, inventory, and staff kept in sync automatically.',
@@ -41,6 +93,8 @@ export const businessTabs = [
   },
   {
     key: 'enterprise',
+    image: '/pos-systems/tabs/enterprise.webp',
+    alt: 'A high-volume multi-brand Dolphin POS rollout',
     label: 'Enterprise',
     icon: Building2,
     body: 'Custom rollout, dedicated support, and integrations for high-volume, multi-brand operations.',

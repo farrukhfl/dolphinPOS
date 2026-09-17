@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import Reveal from '../Reveal'
 import RevealImage from '../ui/RevealImage'
 import { howItWorks } from '../../data/homeContent'
@@ -27,7 +27,7 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
   const ref = useRef(null)
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onViewportEnter={() => onEnter(index)}
       viewport={{ margin: '-45% 0px -45% 0px' }}
@@ -35,7 +35,7 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
     >
       <div className="flex gap-5 sm:gap-7">
         <div className="relative flex flex-col items-center">
-          <motion.span
+          <m.span
             animate={{
               backgroundColor: isActive ? '#0861c6' : '#ffffff',
               color: isActive ? '#ffffff' : '#475569',
@@ -46,13 +46,13 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
             className="tabular z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 text-sm font-extrabold shadow-sm"
           >
             {item.step}
-          </motion.span>
+          </m.span>
         </div>
 
         {/* Dimming only makes sense next to the pinned pane. On phones each
             step carries its own image, so fading two of the three would just
             read as disabled content. */}
-        <motion.div
+        <m.div
           animate={{ opacity: !dimInactive || isActive ? 1 : 0.85 }}
           transition={{ duration: 0.4 }}
           className="pt-1"
@@ -67,9 +67,9 @@ function Step({ item, index, isActive, onEnter, dimInactive }) {
             aspect="aspect-[3/2]"
             className="mt-6 rounded-2xl border border-slate-200 shadow-lg lg:hidden"
           />
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -108,7 +108,7 @@ export default function StickySteps() {
               <div className="relative aspect-[3/2] overflow-hidden rounded-[32px] border border-slate-200 bg-slate-50 shadow-[0_40px_90px_-40px_rgba(8,71,128,0.5)]">
                 {/* Stacked and crossfaded so the pane never collapses mid-swap */}
                 <AnimatePresence initial={false}>
-                  <motion.img
+                  <m.img
                     key={current.image}
                     src={current.image}
                     alt={current.title}
@@ -128,7 +128,7 @@ export default function StickySteps() {
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-7 pt-16">
                   <AnimatePresence mode="wait">
-                    <motion.div
+                    <m.div
                       key={current.title}
                       initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export default function StickySteps() {
                     >
                       <p className="text-xs font-bold uppercase tracking-[0.2em] text-dolphin-300">Step {current.step}</p>
                       <p className="mt-1.5 text-xl font-bold text-white">{current.title}</p>
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
                 </div>
               </div>
@@ -146,7 +146,7 @@ export default function StickySteps() {
               <div className="mt-6 flex gap-2">
                 {howItWorks.map((s, i) => (
                   <div key={s.step} className="h-1 flex-1 overflow-hidden rounded-full bg-slate-200">
-                    <motion.div
+                    <m.div
                       className="h-full rounded-full bg-dolphin-600"
                       animate={{ scaleX: i <= active ? 1 : 0 }}
                       style={{ transformOrigin: 'left' }}
